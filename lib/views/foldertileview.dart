@@ -1,3 +1,4 @@
+import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/controls/appbar.dart';
 import 'package:MWPX/controls/buttonbar.dart';
@@ -74,7 +75,10 @@ class MWPFolderTile extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => VacationView()));
               }
-              if (this._folderCode == 3) {}
+              if (this._folderCode == 3) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DecisionView()));
+              }
             },
             //color: Colors.lightGreen,
             borderSide: BorderSide.none,
