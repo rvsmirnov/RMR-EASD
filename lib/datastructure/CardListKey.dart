@@ -2,10 +2,10 @@ import 'package:MWPX/datastructure/CardKey.dart';
 
 class CardListKey extends CardKey {
   /// Код папки, в которой лежит карточка
-  String folderCode;
+  late String folderCode;
 
   /// Идетификатор ЭПО
-  String wfItem;
+  late String wfItem;
 
   /// Конструктор, инициализация значений
   CardListKey() : super() {

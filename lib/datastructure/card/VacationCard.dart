@@ -3,47 +3,47 @@ import 'package:intl/intl.dart';
 
 class VacationCard extends CardListKey {
   /// ФИО сотрудника, уходящего в отпуск
-  String emplName;
+  late String emplName;
 
   /// Подразделение сотрудника, уходящего в отпуск
-  String emplPodr;
+  late String emplPodr;
 
   /// Должность сотрудника, уходящего в отпуск
-  String emplState;
+  late String emplState;
 
   /// Дата начала отпуска
-  DateTime begDA;
+  late DateTime begDA;
 
   /// Дата окончания отпуска
-  DateTime endDA;
+  late DateTime endDA;
 
   /// Количество календарных дней отпуска
-  int calendarDays;
+  late int calendarDays;
 
   /// Флаг того, что отпуск на территории РФ или с выездом за границу
   /// Значение "D" - на территории РФ
-  String intnlFlag;
+  late String intnlFlag;
 
   /// Место проведения отпуска
-  String location;
+  late String location;
 
   /// Флаг "Отпуск неоплачиваемый"
-  bool unpaidFlag;
+  late bool unpaidFlag;
 
   /// ФИО замещающего отпускника сотрудника
-  String substName;
+  late String substName;
 
   /// Дополнительная информация для отпуска
-  String addInfText;
+  late String addInfText;
 
   /// Резолюция Президента при подписании отпуска
-  String resolutionText;
+  late String resolutionText;
 
   /// ФИО подписывающего
-  String signerName;
+  late String signerName;
 
   /// Подразделение подписывающего
-  String signerPodr;
+  late String signerPodr;
 
   DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 
@@ -80,6 +80,7 @@ class VacationCard extends CardListKey {
     this.signerPodr = "";
   }
 
+  /// Получить Фамилию и инциалы по полному ФИО
   String getShortFIO(String longFIO) {
     var fioParts = longFIO.split(' ');
     return fioParts[0] +

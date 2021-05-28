@@ -16,16 +16,16 @@ class VacationView extends StatefulWidget {
 
 class _VacationViewState extends State<VacationView> {
   int _selectedIndex = 0;
-  VacationCard _selectedCard;
+  VacationCard _selectedCard = new VacationCard();
 
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('Отпуска', null, false, true);
+    appBar.configureAppBar('Отпуска', false, true);
 
     var buttonBar = new MWPButtonBar();
     buttonBar.configureButtonBar(Constants.viewNameVacations);
 
-    List<VacationCard> cardList = new List<VacationCard>();
+    List<VacationCard> cardList = [];
 
     for (int i = 0; i < 100; i++) {
       var card = new VacationCard();
@@ -48,7 +48,7 @@ class _VacationViewState extends State<VacationView> {
       cardList.add(card);
     }
 
-    List<Widget> vacationList = new List<Widget>();
+    List<Widget> vacationList = [];
 
     for (int i = 0; i < cardList.length; i++) {
       bool isLight = (i.remainder(2) == 0);

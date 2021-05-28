@@ -1,8 +1,9 @@
+import 'package:MWPX/views/settingsview.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/mwpcolors.dart' as mwpColors;
 
 class MWPMainAppBar extends StatelessWidget implements PreferredSizeWidget {
-  MWPMainAppBar({Key key})
+  MWPMainAppBar({Key? key})
       : preferredSize = Size.fromHeight(40.0),
         super(key: key);
 
@@ -10,27 +11,24 @@ class MWPMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
 
   String _titleText = "";
-  Widget _settingsWidget;
   bool _settingsButton = false;
   bool _backButton = false;
 
-  void configureAppBar(String TitleText, Widget SettingsWidget,
-      bool SettingsButton, bool BackButton) {
+  void configureAppBar(String TitleText, bool SettingsButton, bool BackButton) {
     _titleText = TitleText;
-    _settingsWidget = SettingsWidget;
     _settingsButton = SettingsButton;
     _backButton = BackButton;
   }
 
   Widget build(BuildContext context) {
-    List<Widget> titleBarActions = new List<Widget>();
+    List<Widget> titleBarActions = [];
 
-    if (_settingsButton && _settingsWidget != null) {
+    if (_settingsButton) {
       titleBarActions.add(IconButton(
         icon: Icon(Icons.settings),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => _settingsWidget));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SettingsView()));
         },
       ));
     }

@@ -4,7 +4,7 @@ import 'package:MWPX/controls/button/squarebutton.dart';
 import 'package:MWPX/constants.dart' as Constants;
 
 class MWPButtonBar extends StatelessWidget {
-  List<Widget> button_list = new List<Widget>();
+  List<Widget> button_list = [];
 
   void configureButtonBar(String viewName) {
     if (viewName == Constants.viewNameFolders) {

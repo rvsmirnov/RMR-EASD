@@ -4,37 +4,37 @@ class DelegationTableItem extends CardItemKey {
   /// <summary>
   /// ФИО делегата
   /// </summary>
-  String fioText;
+  late String fioText;
 
   /// <summary>
   /// Подразделение делегата
   /// </summary>
-  String orgText;
+  late String orgText;
 
   /// <summary>
   /// Должность делегата
   /// </summary>
-  String postText;
+  late String postText;
 
   /// <summary>
   /// Дата начала пребывания в командировке
   /// </summary>
-  DateTime begDT;
+  late DateTime begDT;
 
   /// <summary>
   /// Дата окончания пребывания в командировке
   /// </summary>
-  DateTime endDT;
+  late DateTime endDT;
 
   /// <summary>
   /// Продолжительность пребывания в командировке (в календарных днях)
   /// </summary>
-  int calendarDays;
+  late int calendarDays;
 
   /// <summary>
   /// Вид транспорта, на котором делегат едет в командировку
   /// </summary>
-  String transportType;
+  late String transportType;
 
   DelegationTableItem() : super() {
     fioText = "";

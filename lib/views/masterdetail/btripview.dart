@@ -14,16 +14,16 @@ class BTripView extends StatefulWidget {
 
 class _BTripViewState extends State<BTripView> {
   int _selectedIndex = 0;
-  BTripCard _selectedCard;
+  BTripCard _selectedCard = new BTripCard();
 
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('Командировки', null, false, true);
+    appBar.configureAppBar('Командировки', false, true);
 
     var buttonBar = new MWPButtonBar();
     buttonBar.configureButtonBar(Constants.viewNameBTrips);
 
-    List<BTripCard> cardList = new List<BTripCard>();
+    List<BTripCard> cardList = [];
 
     for (int i = 0; i < 100; i++) {
       var card = new BTripCard();
@@ -45,7 +45,7 @@ class _BTripViewState extends State<BTripView> {
       cardList.add(card);
     }
 
-    List<Widget> btripList = new List<Widget>();
+    List<Widget> btripList = [];
 
     for (int i = 0; i < cardList.length; i++) {
       bool isLight = (i.remainder(2) == 0);

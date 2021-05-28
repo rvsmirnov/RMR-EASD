@@ -7,7 +7,7 @@ class SettingsView extends StatelessWidget {
   Set<String> comments = {'com1', 'com2', 'com3', 'com4', 'com'};
 
   Widget build(BuildContext context) {
-    var commentWidgets = List<Widget>();
+    List<Widget> commentWidgets = [];
     for (var comment in comments) {
       commentWidgets.add(
           Text(comment)); // TODO: Whatever layout you need for each widget.
@@ -16,7 +16,7 @@ class SettingsView extends StatelessWidget {
     var app_bar = new MWPMainAppBar();
     var button_bar = new MWPButtonBar();
 
-    app_bar.configureAppBar('Настройки', null, false, true);
+    app_bar.configureAppBar('Настройки', false, true);
     button_bar.configureButtonBar(Constants.viewNameSettings);
 
     return Scaffold(

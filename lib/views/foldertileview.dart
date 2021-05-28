@@ -11,11 +11,9 @@ import 'package:MWPX/constants.dart' as Constants;
 class MWPFolderTileView extends StatelessWidget {
   Widget build(BuildContext context) {
     MWPMainAppBar app_bar = MWPMainAppBar();
-    SettingsView settings = new SettingsView();
     MWPButtonBar button_bar = MWPButtonBar();
 
-    app_bar.configureAppBar(
-        'Рабочее Место Руководителя', settings, true, false);
+    app_bar.configureAppBar('Рабочее Место Руководителя', true, false);
 
     button_bar.configureButtonBar(Constants.viewNameFolders);
 
@@ -48,7 +46,7 @@ class MWPFolderTileView extends StatelessWidget {
 // Плитка папки на главном экране
 class MWPFolderTile extends StatelessWidget {
   String _folderName = "";
-  IconData _folderIcon;
+  IconData? _folderIcon;
   int _folderCount = 0;
   int _folderCode = 0;
 

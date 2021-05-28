@@ -4,27 +4,27 @@ import 'package:intl/intl.dart';
 //Общий предок классов списков РК
 class CardListItem extends CardListKey {
   /// Дата получения карточки пользователем
-  DateTime rcvdDT;
+  late DateTime rcvdDT;
 
   /// Регистрационный номер в текстовом виде, в формате ВХ-17/ГВЦ
-  String regNUM;
+  late String regNUM;
 
   /// Дата регистрации в текстовом виде, в формате дд.ММ.гггг
-  DateTime regDATE;
+  late DateTime regDATE;
 
   /// <summary>
   /// Статус обработки РК:
   /// 0 - доступна для обработки;
   /// 1 - обработана в РМР;
   /// </summary>
-  int cardProcessed;
+  late int cardProcessed;
 
   /// <summary>
   /// Статус просмотра РК:
   /// 0 - новая РК, еще не открытая ни разу;
   /// 1 - открыта хоть раз;
   /// </summary>
-  int cardOpened;
+  late int cardOpened;
 
   DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 
@@ -47,10 +47,10 @@ class CardListItem extends CardListKey {
     return regDATE == emptyDate ? "" : "от " + dateFormat.format(this.regDATE);
   }
 
-  String createdDT;
-  String changedDT;
+  late String createdDT;
+  late String changedDT;
 
-  int fileCount;
+  late int fileCount;
 
   /// <summary>
   /// Конструктор, инициализация значений

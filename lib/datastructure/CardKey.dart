@@ -1,29 +1,25 @@
-
 /// Класс для хранения ключа РК. От него наследуются структуры хранения данных
-class CardKey
-{
-
+class CardKey {
   /// Логическая система
-  String logsys;
+  String logsys = "";
 
   /// Тип карточки
-  String dokar;
+  String dokar = "";
 
   /// Номер карточки
-  String doknr;
+  String doknr = "";
 
   /// Версия ( обычно - 00)
-  String dokvr;
+  String dokvr = "00";
 
   /// DOKTL ( обычно - 000)
-  String doktl;
+  String doktl = "000";
 
   /// Пустая дата для подстановки в качестве начального значения полей данных в классах-потомках
   final DateTime emptyDate = new DateTime(1900, 01, 01, 00, 00, 00);
 
   /// Конструктор с пустыми значениями
-  CardKey()
-  {
+  CardKey() {
     this.logsys = "";
     this.dokar = "";
     this.doknr = "";

@@ -4,50 +4,50 @@ import 'package:intl/intl.dart';
 
 class BTripCard extends CardListKey {
   /// Флаг "Иностранная командировка"
-  bool isInternational;
+  late bool isInternational;
 
   /// Название целевой страны
-  String countryText;
+  late String countryText;
 
   /// Название города, куда едем
-  String nCity;
+  late String nCity;
 
   /// Начало командировки, если общее для делегации
-  DateTime begDT;
+  late DateTime begDT;
 
   /// Окончание командировки, если общее для делегации
-  DateTime endDT;
+  late DateTime endDT;
 
   /// Продолжительность, в календарных днях
-  int calendarDays;
+  late int calendarDays;
 
   /// Вид транспорта
-  String transportType;
+  late String transportType;
 
   /// Флаг "Общие для делегации"
   /// Если он установлен, то поля BEG_DT, END_DT, CALENDDAYS, TRANSP одинковые для всех членов делегации
-  bool globalFlag;
+  late bool globalFlag;
 
   /// Пункт плана, если командировка плановая
-  String planPunkt;
+  late String planPunkt;
 
   /// Флаг "Командировка плановая"
-  bool planFlag;
+  late bool planFlag;
 
   /// Цель командировки
-  String goalText;
+  late String goalText;
 
   /// Дополнительная информация для командровки
-  String addInfText;
+  late String addInfText;
 
   /// Текст резолюции Президента при подписании командировки
-  String resText;
+  late String resText;
 
   /// Подписывающий командировку
-  String signerName;
+  late String signerName;
 
   /// Подразделение подписывающего
-  String signerPodr;
+  late String signerPodr;
 
   /// Текст вида командировки
   String get isInternationalText =>
@@ -61,7 +61,7 @@ class BTripCard extends CardListKey {
 
   DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 
-  List<DelegationTableItem> delegationTable;
+  late List<DelegationTableItem> delegationTable;
 
   /// Конструктор, инициализация
   BTripCard() : super() {
@@ -79,6 +79,6 @@ class BTripCard extends CardListKey {
     this.goalText = "";
     this.addInfText = "";
 
-    delegationTable = new List<DelegationTableItem>();
+    delegationTable = [];
   }
 }
