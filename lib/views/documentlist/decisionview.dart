@@ -1,6 +1,7 @@
 import 'package:MWPX/controls/appbar.dart';
 import 'package:MWPX/controls/buttonbar.dart';
 import 'package:MWPX/datastructure/list/DecisionListItem.dart';
+import 'package:MWPX/mwpcolors.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/constants.dart' as Constants;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -42,6 +43,7 @@ class DecisionView extends StatelessWidget {
                 allowSorting: true,
                 selectionMode: SelectionMode.single,
                 source: _decisionListSource,
+                gridLinesVisibility: GridLinesVisibility.none,
                 columns: [
                   GridTextColumn(
                       columnName: 'doknr',
@@ -49,6 +51,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
+                          color: mwpColorLight,
                           child: Text(
                             'DOKNR',
                             overflow: TextOverflow.ellipsis,
@@ -59,6 +62,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
+                          color: mwpColorLight,
                           child: Text(
                             'Получено',
                             overflow: TextOverflow.ellipsis,
@@ -69,6 +73,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
+                          color: mwpColorLight,
                           child: Text(
                             'Номер',
                             overflow: TextOverflow.ellipsis,
@@ -79,6 +84,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
+                          color: mwpColorLight,
                           child: Text(
                             'Автор',
                             overflow: TextOverflow.ellipsis,
@@ -89,6 +95,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
+                          color: mwpColorLight,
                           child: Text(
                             'Содержание',
                             overflow: TextOverflow.ellipsis,
@@ -125,6 +132,8 @@ class DecisionDataSource extends DataGridSource {
         .toList();
   }
 
+//          if (dataGridCell.value == 'Developer'
+
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
@@ -132,6 +141,10 @@ class DecisionDataSource extends DataGridSource {
       return Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          color: (dataGridCell.columnName == 'doknr' &&
+                  int.parse(dataGridCell.value).remainder(2) == 0
+              ? mwpTableRowBackroundDark
+              : mwpTableRowBackroundLight),
           child: Text(
             dataGridCell.value.toString(),
             overflow: TextOverflow.ellipsis,
