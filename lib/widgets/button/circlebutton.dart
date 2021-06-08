@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 
 /// Круглая кнопка-иконка для Нижней панели РМР
 class MWPCircleButton extends StatelessWidget {
+  final Widget? buttonChild;
+  final Function()? onPressed;
 
-  final IconData _buttonIcon;
-
-  MWPCircleButton(this._buttonIcon);
+  MWPCircleButton({this.buttonChild, this.onPressed});
 
   Widget build(BuildContext context) {
-    return OutlineButton(
-        child: Icon(_buttonIcon, color: Colors.white),
-        onPressed: () {},
-        borderSide: BorderSide(width: 2, color: Colors.white),
-        shape: CircleBorder());
+    return OutlinedButton(
+      child: buttonChild!,
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        shape: CircleBorder(),
+        side: BorderSide(width: 2, color: Colors.white),
+      ),
+    );
   }
 }

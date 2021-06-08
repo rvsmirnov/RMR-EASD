@@ -8,7 +8,9 @@ class MWPButtonBar extends StatelessWidget {
 
   void configureButtonBar(String viewName) {
     if (viewName == Constants.viewNameFolders) {
-      button_list.add(MWPCircleButton(Icons.sync));
+      button_list.add(MWPCircleButton(
+        buttonChild: Icon(Icons.sync, color: Colors.white),
+      ));
     }
 
     if (viewName == Constants.viewNameBTrips) {
@@ -24,7 +26,9 @@ class MWPButtonBar extends StatelessWidget {
     }
 
     if (viewName == Constants.viewNameDecisionList) {
-      button_list.add(MWPCircleButton(Icons.sync));
+      button_list.add(MWPCircleButton(
+        buttonChild: Icon(Icons.sync, color: Colors.white),
+      ));
     }
   }
 
