@@ -14,31 +14,31 @@ class BiometricRun extends BiometricEvent {}
 // class OpenEditScreen extends BiometricEvent {
 //   const OpenEditScreen({
 //     @required this.containerNumber,
-//     @required this.containerZpuList,
+//     @required this.containerDataList,
 //   });
 //   final String? containerNumber;
-//   final List<Map>? containerZpuList;
+//   final List<Map>? containerDataList;
 
 //   @override
-//   List<Object?> get props => [containerNumber, containerZpuList];
+//   List<Object?> get props => [containerNumber, containerDataList];
 
 //   @override
 //   String toString() =>
-//       'OpenEditScreen { containerNumber: $containerNumber containerZpuList: $containerZpuList}';
+//       'OpenEditScreen { containerNumber: $containerNumber containerDataList: $containerDataList}';
 // }
 
-// class EditZpuEvent extends BiometricEvent {
-//   final Map? zpu;
+// class EditEvent extends BiometricEvent {
+//   final Map? data;
 //   final String? oldNumber;
 
-//   const EditZpuEvent({
-//     @required this.zpu,
+//   const EditEvent({
+//     @required this.data,
 //     @required this.oldNumber,
 //   });
 
 //   @override
-//   List<Object?> get props => [zpu, oldNumber];
+//   List<Object?> get props => [data, oldNumber];
 
 //   @override
-//   String toString() => 'EditZpuEvent { zpu: $zpu oldNumber: $oldNumber }';
+//   String toString() =>  EditEvent { data: $data oldNumber: $oldNumber }';
 // }

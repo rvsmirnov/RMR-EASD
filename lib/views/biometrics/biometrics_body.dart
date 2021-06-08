@@ -1,5 +1,5 @@
 import 'package:MWPX/blocs/biometric/biometric_bloc.dart';
-import 'package:MWPX/views/home/home.dart';
+import 'package:MWPX/views/home/home_screen.dart';
 import 'package:MWPX/widgets/button/elevated_button.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _BiometricsBodyState extends State<BiometricsBody> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MWPFolderTileView(),
+              builder: (context) => MWPFolderTileViewScreen(),
             ),
           );
 

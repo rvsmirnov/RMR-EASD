@@ -17,20 +17,6 @@ class BiometricNotAvailable extends BiometricState {}
 
 class BiometricSucess extends BiometricState {}
 
-class BiometricDataReceived extends BiometricState {
-  final List<Map>? zpuList;
-
-  const BiometricDataReceived({
-    @required this.zpuList,
-  });
-
-  @override
-  List<Object?> get props => [zpuList];
-
-  @override
-  String toString() => 'BiometricDataReceived { zpuList: $zpuList }';
-}
-
 class BiometricFailure extends BiometricState {
   final String? error;
 

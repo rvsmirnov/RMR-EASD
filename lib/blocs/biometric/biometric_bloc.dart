@@ -65,27 +65,5 @@ class BiometricBloc extends Bloc<BiometricEvent, BiometricState> {
         yield BiometricFailure(error: error.toString());
       }
     }
-    // if (event is OpenEditScreen) {
-    //   try {
-    //     yield BiometricLoading();
-    //     List<Map> containerZpuList = List<Map>.empty();
-    //     // Выбираем ЗПУ конкретного вагона
-    //     event.containerZpuList?.forEach(
-    //       (e) {
-    //         print('--- e[containerNumber] ${e['containerNumber']}');
-    //         print('--- event.containerNumber ${event.containerNumber}');
-    //         if (e['containerNumber'] == event.containerNumber) {
-    //           containerZpuList.add(e);
-    //         }
-    //       },
-    //     );
-    //     zpuList = containerZpuList;
-    //     print('--- --- containerZpuList in OpenEditScreen $zpuList');
-    //     yield BiometricDataReceived(zpuList: zpuList);
-    //   } catch (error) {
-    //     print('error in BiometricBloc $error');
-    //     yield BiometricFailure(error: error.toString());
-    //   }
-    // }
   }
 }

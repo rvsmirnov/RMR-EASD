@@ -1,28 +1,43 @@
+import 'package:MWPX/blocs/home/home_bloc.dart';
 import 'package:MWPX/views/documentlist/decisionview.dart';
+import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/views/masterdetail/btripview.dart';
 import 'package:MWPX/views/masterdetail/vacationview.dart';
 import 'package:MWPX/constants.dart' as Constants;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Страница с плитками папок
 class MWPFolderTileView extends StatelessWidget {
   Widget build(BuildContext context) {
-    MWPMainAppBar app_bar = MWPMainAppBar();
     MWPButtonBar button_bar = MWPButtonBar();
-
-    app_bar.configureAppBar('Рабочее Место Руководителя', true, false);
 
     button_bar.configureButtonBar(Constants.viewNameFolders);
 
-    return Scaffold(
-      appBar: app_bar,
-      body: Column(
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is HomeFailure) {
+        Dialogs.infoDialog(
+          context: context,
+          content: Text('${state.error}'),
+        );
+      }
+    }, builder: (context, state) {
+      print('state in MWPFolderTileView $state');
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(
-              child: Container(
+          if (state is HomeLoading)
+            Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          if (state is HomeDataReceived)
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
                   margin: EdgeInsets.all(30.0),
                   alignment: Alignment.center,
                   child: Wrap(
@@ -30,15 +45,30 @@ class MWPFolderTileView extends StatelessWidget {
                     //mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      MWPFolderTile(1, 'Командировки', 7, Icons.date_range),
-                      MWPFolderTile(2, 'Отпуска', 3, Icons.free_breakfast),
-                      MWPFolderTile(3, 'На решение', 12, Icons.description),
+                      ...state.foldersHomeDataList!.map(
+                        (e) => MWPFolderTile(
+                          e['folderCode'],
+                          e['folderName'],
+                          e['folderCount'],
+                          e['folderIcon'],
+                        ),
+                      ),
+                      // MWPFolderTile(1, 'Командировки', 7, Icons.date_range),
+                      // MWPFolderTile(2, 'Отпуска', 3, Icons.free_breakfast),
+                      // MWPFolderTile(3, 'На решение', 12, Icons.description),
                     ],
-                  ))),
+                  ),
+                ),
+              ),
+            ),
+          if (state is HomeFailure)
+            Expanded(
+              child: SizedBox(),
+            ),
           button_bar,
         ],
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -50,11 +80,11 @@ class MWPFolderTile extends StatelessWidget {
   int _folderCode = 0;
 
   MWPFolderTile(
-      int FolderCode, String FolderName, int FolderCount, IconData FolderIcon) {
-    _folderCode = FolderCode;
-    _folderName = FolderName;
-    _folderIcon = FolderIcon;
-    _folderCount = FolderCount;
+      int folderCode, String folderName, int folderCount, IconData folderIcon) {
+    _folderCode = folderCode;
+    _folderName = folderName;
+    _folderIcon = folderIcon;
+    _folderCount = folderCount;
   }
 
   Widget build(BuildContext context) {
