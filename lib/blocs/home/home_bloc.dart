@@ -1,4 +1,5 @@
 import 'package:MWPX/services/home_service.dart';
+import 'package:MWPX/styles/mwp_icons.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -21,8 +22,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield HomeLoading();
         List<Map> foldersHomeDataList = homeService!.foldersHomeDataList;
         // throw 'Данных нет';
-        yield HomeDataReceived(
+        List<Map>? newFoldersHomeDataList = homeService!.addSvgIcons(
           foldersHomeDataList: foldersHomeDataList,
+          homeSvgIconsList: MwpIcons.homeSvgIconsList,
+        );
+        yield HomeDataReceived(
+          foldersHomeDataList: newFoldersHomeDataList,
         );
       } catch (error) {
         print('error in HomeBloc $error');

@@ -3,6 +3,7 @@ import 'package:MWPX/widgets/MWPAttribute.dart';
 import 'package:MWPX/widgets/MWPGroupBox.dart';
 import 'package:MWPX/data_structure/card/BTripCard.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
+import 'package:split_view/split_view.dart';
 import '../../widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/constants.dart' as Constants;
@@ -67,23 +68,27 @@ class _BTripViewState extends State<BTripView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
+              child: SplitView(
+            viewMode: SplitViewMode.Horizontal,
+            indicator: SplitIndicator(viewMode: SplitViewMode.Horizontal),
+            activeIndicator: SplitIndicator(
+              viewMode: SplitViewMode.Horizontal,
+              isActive: true,
+            ),
+            children: [
                     Container(
-                      width: 400,
+                      // width: 400,
                       child: ListView(
                         children: btripList,
                       ),
                     ),
-                    Expanded(
+                    Container(
                       child: BTripCardView(_selectedCard),
                     )
                   ],
                 ),
               ),
-            ),
+          
             buttonBar
           ]),
     );

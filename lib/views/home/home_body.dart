@@ -8,6 +8,7 @@ import 'package:MWPX/views/masterdetail/btripview.dart';
 import 'package:MWPX/views/masterdetail/vacationview.dart';
 import 'package:MWPX/constants.dart' as Constants;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Страница с плитками папок
 class MWPFolderTileView extends StatelessWidget {
@@ -50,7 +51,7 @@ class MWPFolderTileView extends StatelessWidget {
                           e['folderCode'],
                           e['folderName'],
                           e['folderCount'],
-                          e['folderIcon'],
+                          e['svgCode'],
                         ),
                       ),
                       // MWPFolderTile(1, 'Командировки', 7, Icons.date_range),
@@ -75,19 +76,20 @@ class MWPFolderTileView extends StatelessWidget {
 // Плитка папки на главном экране
 class MWPFolderTile extends StatelessWidget {
   String _folderName = "";
-  IconData? _folderIcon;
-  int _folderCount = 0;
+  String? _svgCode;
+  int? _folderCount = 0;
   int _folderCode = 0;
 
   MWPFolderTile(
-      int folderCode, String folderName, int folderCount, IconData folderIcon) {
+      int folderCode, String folderName, int? folderCount, String svgCode) {
     _folderCode = folderCode;
     _folderName = folderName;
-    _folderIcon = folderIcon;
+    _svgCode = svgCode;
     _folderCount = folderCount;
   }
 
   Widget build(BuildContext context) {
+    print('--- $_svgCode');
     return Container(
       margin: EdgeInsets.all(14),
       width: 270,
@@ -127,13 +129,43 @@ class MWPFolderTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Expanded(child: Container()),
-                    Icon(
-                      _folderIcon,
-                      color: Colors.lightGreen,
-                      size: 90,
+                    Center(
+                      child: SvgPicture.string(
+                        _svgCode!,
+                        height: 135,
+                        width: 135,
+                        fit: BoxFit.fill,
+                        color: Colors.lightGreen,
+                      ),
                     ),
-                    Expanded(child: Container()),
+                    // Expanded(child: Container()),
+                    // Center(
+                    //   child: SvgPicture.string(
+                    //     '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path
+                    //     d="
+                    //     "
+                    //      /></svg>''',
+                    //     height: 135,
+                    //     width: 135,
+                    //     fit: BoxFit.fill,
+                    //     color: Colors.lightGreen,
+                    //   ),
+                    // ),
+                    // Center(
+                    //   child: SvgPicture.string(
+                    //     '''<svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path d="$_svgCode" /></svg>''',
+                    //     height: 135,
+                    //     width: 135,
+                    //     fit: BoxFit.fill,
+                    //     color: Colors.lightGreen,
+                    //   ),
+                    // ),
+                    // Icon(
+                    //   _svgCode,
+                    //   color: Colors.lightGreen,
+                    //   size: 90,
+                    // ),
+                    // Expanded(child: Container()),
                   ],
                 ),
               ),
@@ -151,17 +183,25 @@ class MWPFolderTile extends StatelessWidget {
                   color: Colors.lightGreen),
               child: Row(
                 children: <Widget>[
-                  Text(
-                    _folderName,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  Container(
+                    width: 200,
+                    height: 25,
+                    child: FittedBox(
+                      child: Text(
+                        _folderName,
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                      alignment: Alignment.centerLeft,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Expanded(
                       child: Container(
                           //color: Colors.lightGreen,
                           )),
                   Text(
-                    '$_folderCount',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    _folderCount == null ? '' : '$_folderCount',
+                    style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
                 ],
               ),

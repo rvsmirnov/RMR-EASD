@@ -1,73 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class HomeService {
   List<Map> foldersHomeDataList = [
     {
-      'folderCode': 1,
+      'folderCode': 00001,
       'folderName': 'Командировки',
       'folderCount': 7,
-      'folderIcon': Icons.date_range,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 2,
+      'folderCode': 00002,
       'folderName': 'Отпуска',
       'folderCount': 3,
-      'folderIcon': Icons.free_breakfast,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 3,
+      'folderCode': 00003,
       'folderName': 'На решение',
       'folderCount': 12,
-      'folderIcon': Icons.description,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 4,
+      'folderCode': 00004,
       'folderName': 'Отчеты',
       'folderCount': 1,
-      'folderIcon': Icons.library_books,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 5,
-      'folderName': 'На Соглосование',
+      'folderCode': 00005,
+      'folderName': 'На согласование',
       'folderCount': 154,
-      'folderIcon': Icons.assignment,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 6,
+      'folderCode': 00006,
       'folderName': 'На подписание',
       'folderCount': 2,
-      'folderIcon': Icons.edit,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 7,
+      'folderCode': 00007,
       'folderName': 'На исполнение',
       'folderCount': 5,
-      'folderIcon': Icons.flag,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 8,
+      'folderCode': 00008,
       'folderName': 'На контроль',
       'folderCount': 76,
-      'folderIcon': Icons.warning_outlined,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 9,
+      'folderCode': 00009,
       'folderName': 'Создать поручение',
-      'folderCount': 12,
-      'folderIcon': Icons.edit,
+      'folderCount': null,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 10,
+      'folderCode': 000010,
       'folderName': 'На ознакомление',
-      'folderCount': 10,
-      'folderIcon': Icons.contacts_rounded,
+      'folderCount': 100,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
     {
-      'folderCode': 11,
+      'folderCode': 000011,
       'folderName': 'К совещанию',
       'folderCount': 1223,
-      'folderIcon': Icons.task,
+      'svgCode': '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>''',
     },
   ];
+
+  List<Map>? addSvgIcons(
+      {List<Map>? foldersHomeDataList, List<Map>? homeSvgIconsList}) {
+    foldersHomeDataList!.forEach((element) {
+      // Map homeSvgIcon =
+      homeSvgIconsList!.forEach((el) {
+        if (element['folderCode'] == el['folderCode']) {
+          element['svgCode'] = el['svgCode'];
+        }
+      });
+    });
+    return foldersHomeDataList;
+  }
 }

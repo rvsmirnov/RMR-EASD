@@ -1,3 +1,6 @@
 import 'package:flutter/material.dart';
 
-const TextStyle buttonTextStyle = TextStyle(fontSize: 20);
+
+class MwpTextStyles {
+  static const TextStyle buttonTextStyle = TextStyle(fontSize: 20);
+}

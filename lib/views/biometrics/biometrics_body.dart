@@ -1,11 +1,11 @@
 import 'package:MWPX/blocs/biometric/biometric_bloc.dart';
+import 'package:MWPX/styles/mwp_text_styles.dart';
 import 'package:MWPX/views/home/home_screen.dart';
 import 'package:MWPX/widgets/button/elevated_button.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:MWPX/styles/mwp_colors.dart' as mwpColors;
-import 'package:MWPX/styles/mwp_text_styles.dart' as mwpTextStyle;
 
 class BiometricsBody extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class _BiometricsBodyState extends State<BiometricsBody> {
           return Center(
             child: MWPElevatedButton(
               style: ElevatedButton.styleFrom(
-                textStyle: mwpTextStyle.buttonTextStyle,
+                textStyle: MwpTextStyles.buttonTextStyle,
                 primary: mwpColors.mwpAccentColor,
               ),
               onPressed: () {
