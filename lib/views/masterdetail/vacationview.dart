@@ -1,8 +1,8 @@
+import 'package:MWPX/data_structure/card/body/vacation/VacationCard.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/MWPAttribute.dart';
 import 'package:MWPX/widgets/MWPGroupBox.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
-import 'package:MWPX/data_structure/card/VacationCard.dart';
 import '../../widgets/app_bar/appbar.dart';
 import 'package:MWPX/constants.dart' as Constants;
 

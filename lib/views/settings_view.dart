@@ -9,18 +9,19 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> commentWidgets = [];
     for (var comment in comments) {
-      commentWidgets.add(
-          Text(comment)); // TODO: Whatever layout you need for each widget.
+      commentWidgets
+          // ignore: todo
+          .add(Text(comment)); //TODO: Whatever layout you need for each widget.
     }
 
-    var app_bar = new MWPMainAppBar();
-    var button_bar = new MWPButtonBar();
+    var appBar = new MWPMainAppBar();
+    var buttonBar = new MWPButtonBar();
 
-    app_bar.configureAppBar('Настройки', false, true);
-    button_bar.configureButtonBar(Constants.viewNameSettings);
+    appBar.configureAppBar('Настройки', false, true);
+    buttonBar.configureButtonBar(Constants.viewNameSettings);
 
     return Scaffold(
-      appBar: app_bar,
+      appBar: appBar,
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -36,7 +37,7 @@ class SettingsView extends StatelessWidget {
                 ],
               ),
             ),
-            button_bar
+            buttonBar
           ]),
     );
   }

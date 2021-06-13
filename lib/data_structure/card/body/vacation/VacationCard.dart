@@ -1,7 +1,7 @@
-import 'package:MWPX/data_structure/CardListKey.dart';
+import 'package:MWPX/data_structure/card/body/CardHeader.dart';
 import 'package:intl/intl.dart';
 
-class VacationCard extends CardListKey {
+class VacationCard extends CardHeader {
   /// ФИО сотрудника, уходящего в отпуск
   late String emplName;
 

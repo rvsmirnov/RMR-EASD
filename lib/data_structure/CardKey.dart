@@ -23,8 +23,8 @@ class CardKey {
     this.logsys = "";
     this.dokar = "";
     this.doknr = "";
-    this.dokvr = "";
-    this.doktl = "";
+    this.dokvr = "00";
+    this.doktl = "000";
   }
 
   //CardKey(this.logsys, this.dokar, this.doknr, this.dokvr, this.doktl);
