@@ -1,8 +1,8 @@
+import 'package:MWPX/data_structure/card/body/btrip/BTripCard.dart';
 import 'package:MWPX/widgets/MWPGroupsBox.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/MWPAttribute.dart';
 import 'package:MWPX/widgets/MWPGroupBox.dart';
-import 'package:MWPX/data_structure/card/BTripCard.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:flutter/rendering.dart';
 import 'package:split_view/split_view.dart';
