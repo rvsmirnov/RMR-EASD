@@ -1,5 +1,5 @@
 class MwpIcons {
-  static const List<Map> homeSvgIconsList = [
+  static const List<Map> svgIconsList = [
     {
       'folderCode': 00001,
       'svgCode':

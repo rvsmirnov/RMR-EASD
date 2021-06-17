@@ -4,10 +4,12 @@ import 'package:MWPX/widgets/MWPGroupBox.dart';
 import 'package:MWPX/data_structure/card/BTripCard.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:split_view/split_view.dart';
-import '../../widgets/app_bar/appbar.dart';
+import '../../../widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/constants.dart' as Constants;
 
+
+// Копия с изначальной версткой
 class BTripView extends StatefulWidget {
   @override
   _BTripViewState createState() => _BTripViewState();

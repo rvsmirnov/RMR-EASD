@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeService {
+  // Заглушка на случай не нахождения иконки '''<svg style="width:24px;height:24px" viewBox="0 0 74 74"> <path d=""/></svg>'''
   List<Map> foldersHomeDataList = [
     {
       'folderCode': 00001,

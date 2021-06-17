@@ -24,7 +24,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         // throw 'Данных нет';
         List<Map>? newFoldersHomeDataList = homeService!.addSvgIcons(
           foldersHomeDataList: foldersHomeDataList,
-          homeSvgIconsList: MwpIcons.homeSvgIconsList,
+          homeSvgIconsList: MwpIcons.svgIconsList,
         );
         yield HomeDataReceived(
           foldersHomeDataList: newFoldersHomeDataList,
