@@ -1,8 +1,8 @@
-import 'package:MWPX/data_structure/CardListKey.dart';
-import 'package:MWPX/data_structure/card/DelegationTableItem.dart';
+import 'package:MWPX/data_structure/card/body/CardHeader.dart';
+import 'package:MWPX/data_structure/card/body/btrip/DelegationTableItem.dart';
 import 'package:intl/intl.dart';
 
-class BTripCard extends CardListKey {
+class BTripCard extends CardHeader {
   /// Флаг "Иностранная командировка"
   late bool isInternational;
 

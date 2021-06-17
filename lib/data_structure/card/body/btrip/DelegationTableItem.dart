@@ -1,4 +1,4 @@
-import 'package:MWPX/data_structure/CardItemKey.dart';
+import 'package:MWPX/data_structure/card/body/CardItemKey.dart';
 
 class DelegationTableItem extends CardItemKey {
   /// <summary>

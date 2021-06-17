@@ -1,6 +1,6 @@
+import 'package:MWPX/data_structure/card/list/DecisionListItem.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
-import 'package:MWPX/data_structure/list/DecisionListItem.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/constants.dart' as Constants;

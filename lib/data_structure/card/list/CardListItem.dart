@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 
 //Общий предок классов списков РК
 class CardListItem extends CardListKey {
+  DateFormat dateFormat = DateFormat("dd.MM.yyyy");
+
   /// Дата получения карточки пользователем
   late DateTime rcvdDT;
 
@@ -25,8 +27,6 @@ class CardListItem extends CardListKey {
   /// 1 - открыта хоть раз;
   /// </summary>
   late int cardOpened;
-
-  DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 
   /// <summary>
   /// Дата поступления РК в рабочее место в формате дд.ММ.гггг
@@ -52,6 +52,10 @@ class CardListItem extends CardListKey {
 
   late int fileCount;
 
+  /// Содержание документа
+  /// У Командировок и Отпусков тут сборная строка из полей РК, так как отдельного содержания там нет
+  late String content;
+
   /// <summary>
   /// Конструктор, инициализация значений
   /// </summary>
@@ -64,5 +68,6 @@ class CardListItem extends CardListKey {
     createdDT = "";
     changedDT = "";
     fileCount = 0;
+    content = "";
   }
 }

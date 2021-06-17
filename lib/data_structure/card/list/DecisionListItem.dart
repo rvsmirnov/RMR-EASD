@@ -1,4 +1,4 @@
-import 'package:MWPX/data_structure/CardListItem.dart';
+import 'package:MWPX/data_structure/card/list/CardListItem.dart';
 
 /// Элемент списка папки "На решение"
 class DecisionListItem extends CardListItem {
@@ -8,14 +8,9 @@ class DecisionListItem extends CardListItem {
   /// Основной автор, заполняется для Входящего
   late String mainAuthor;
 
-  /// Содержание документа
-  /// У Командировок и Отпусков тут сборная строка из полей РК, так как отдельного содержания там нет
-  late String content;
-
   /// Конструктор
   DecisionListItem() : super() {
     cardUrgent = false;
     mainAuthor = "";
-    content = "";
   }
 }
