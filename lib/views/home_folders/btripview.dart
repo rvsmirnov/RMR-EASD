@@ -1,4 +1,5 @@
 import 'package:MWPX/data_structure/card/body/btrip/BTripCard.dart';
+import 'package:MWPX/views/home_folders/input_screen/input_screen.dart';
 import 'package:MWPX/widgets/MWPGroupsBox.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/MWPAttribute.dart';
@@ -18,7 +19,7 @@ class BTripView extends StatefulWidget {
 class _BTripViewState extends State<BTripView> {
   int _selectedIndex = 0;
   BTripCard _selectedCard = new BTripCard();
-  double leftSplitterWidth = 0.5;
+  double rightSplitterWidth = 0.5;
 
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
@@ -78,8 +79,8 @@ class _BTripViewState extends State<BTripView> {
                   WeightLimit(min: 0.02),
                 ]),
                 onWeightChanged: (w) => setState(() {
-                  leftSplitterWidth = w[1]!.toDouble();
-                  // print('leftSplitterWidth $leftSplitterWidth');
+                  rightSplitterWidth = w[1]!.toDouble();
+                  // print('rightSplitterWidth $rightSplitterWidth');
                 }),
                 viewMode: SplitViewMode.Horizontal,
                 activeIndicator: SplitIndicator(
@@ -96,7 +97,7 @@ class _BTripViewState extends State<BTripView> {
                   Container(
                     child: BTripCardView(
                       _selectedCard,
-                      leftSplitterWidth: leftSplitterWidth,
+                      rightSplitterWidth: rightSplitterWidth,
                     ),
                   ),
                 ],
@@ -115,30 +116,362 @@ class _BTripViewState extends State<BTripView> {
 }
 
 /// Карточка командировки, правая часть экрана
-class BTripCardView extends StatelessWidget {
+class BTripCardView extends StatefulWidget {
   final BTripCard card;
-  final double? leftSplitterWidth;
+  final double? rightSplitterWidth;
 
-  BTripCardView(this.card, {this.leftSplitterWidth});
+  BTripCardView(this.card, {this.rightSplitterWidth});
+
+  @override
+  State<BTripCardView> createState() => _BTripCardViewState();
+}
+
+class _BTripCardViewState extends State<BTripCardView> {
+  String resolutionContentText = '';
 
   double getWeightLimit(double sizeHeight) {
-    if (sizeHeight >= 768 && sizeHeight < 1024) {
+    if (sizeHeight >= 320 && sizeHeight < 768) {
+      return 0.3;
+    } else if (sizeHeight >= 768 && sizeHeight < 1024) {
       return 0.104;
     } else if (sizeHeight >= 1024) {
       return 0.072;
     }
     return 0.104;
+
+    // return 0.004;
+  }
+
+  double getWeightMWPAttribute(
+      {double? size, bool? fullScreen, double? rightSplitterWidth}) {
+    if (fullScreen!) {
+      return size! / 2.5;
+    } else {
+      return size! / 2 * rightSplitterWidth! - 50 >= 0
+          ? size / 2 * rightSplitterWidth - 50
+          : 0;
+    }
+  }
+
+  Widget getBusinessTripContent({double? width}) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MWPAttribute(
+                    'Вид командировки',
+                    this.widget.card.isInternationalText,
+                    containerWidth: width,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MWPAttribute(
+                    'Город',
+                    this.widget.card.nCity,
+                    containerWidth: width,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MWPAttribute(
+                    'Продолжительность',
+                    this.widget.card.calendarDaysText,
+                    containerWidth: width,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MWPAttribute(
+                    'Вид транспорта',
+                    this.widget.card.transportType,
+                    containerWidth: width,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ],
+            // ),
+          ),
+          MWPAttribute(
+            'Период',
+            'с ' +
+                this.widget.card.begDTText +
+                ' по ' +
+                this.widget.card.endDTText,
+            containerWidth: width! * 2,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
-    // print('leftSplitterWidth in BTripCardView $leftSplitterWidth');
-    // print('MediaQuery.of(context).size.width * leftSplitterWidth! ${MediaQuery.of(context).size.width * leftSplitterWidth!}');
-    // print('MediaQuery.of(context).size.width ${MediaQuery.of(context).size.width}');
+    // print('resolutionContentForDialog ${resolutionController.text}');
+    // print('rightSplitterWidth in BTripCardView $rightSplitterWidth');
+    // print('MediaQuery.of(context).size.width * rightSplitterWidth! ${MediaQuery.of(context).size.width * rightSplitterWidth!}');
     // print(
-    //     'MediaQuery.of(context).size.height ${MediaQuery.of(context).size.height}');
+    // 'MediaQuery.of(context).size.width ${MediaQuery.of(context).size.width}');
+    print(
+        'MediaQuery.of(context).size.height ${MediaQuery.of(context).size.height}');
+    print(
+        'MediaQuery.of(context).viewInsets.bottom ${MediaQuery.of(context).viewInsets.bottom}');
     // print(
     //     'MediaQuery.of(context).size.height*0.00064 ${MediaQuery.of(context).size.height * 0.00064}');
+
+    double mediaQueryWidth = MediaQuery.of(context).size.width;
     double minWeightLimit = getWeightLimit(MediaQuery.of(context).size.height);
+    double splitterContainerWidth = getWeightMWPAttribute(
+      size: mediaQueryWidth,
+      fullScreen: false,
+      rightSplitterWidth: widget.rightSplitterWidth,
+    );
+    double fullContainerWidth = getWeightMWPAttribute(
+      size: mediaQueryWidth,
+      fullScreen: true,
+      rightSplitterWidth: widget.rightSplitterWidth,
+    );
+
+    // Контент Командировок для сплиттера
+    Widget businessTribSplitterContent =
+        getBusinessTripContent(width: splitterContainerWidth);
+    // Контент Командировок для диалога
+    Widget businessTribDialogContent =
+        getBusinessTripContent(width: fullContainerWidth);
+
+    // Контент Цель
+    Widget targetContent = Text(
+      this.widget.card.goalText,
+      overflow: TextOverflow.visible,
+      maxLines: 1,
+    );
+
+    // Контент Доп. инфо
+    Widget additionalInformationContent = Container(
+      child: Text(
+        this.widget.card.addInfText,
+        overflow: TextOverflow.visible,
+        maxLines: 1,
+      ),
+    );
+
+    // Контент Делегация
+    Widget delegationContent = Table(
+      border: TableBorder.symmetric(
+        inside: BorderSide(width: 1),
+        outside: BorderSide(width: 1),
+      ),
+      columnWidths: const <int, TableColumnWidth>{
+        // 0: IntrinsicColumnWidth(),
+        // 1: FlexColumnWidth(),
+        // 2: FixedColumnWidth(64),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: <TableRow>[
+        TableRow(
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(75, 75, 75, 1),
+          ),
+          children: <Widget>[
+            Container(
+              child: Text(
+                'ФИО',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Подразделение',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Должность',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          children: <Widget>[
+            Container(
+              child: Text(
+                'Кузьмина Ольга Юрьевна',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+            Container(
+              child: Text(
+                'ЦН_тест',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Главный специалист',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    // Контент Согласование
+    Widget agreementContent = Table(
+      border: TableBorder.symmetric(
+        inside: BorderSide(width: 1),
+        outside: BorderSide(width: 1),
+      ),
+      columnWidths: const <int, TableColumnWidth>{
+        // 0: IntrinsicColumnWidth(),
+        // 1: FlexColumnWidth(),
+        // 2: FixedColumnWidth(64),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: <TableRow>[
+        TableRow(
+          decoration: const BoxDecoration(
+            // color: Colors.black87,
+            color: Color.fromRGBO(75, 75, 75, 1),
+          ),
+          children: <Widget>[
+            Container(
+              child: Text(
+                'Статус',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Подразделение',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Согласующий',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Замечания/Комментарий',
+                style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.visible,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          children: <Widget>[
+            Container(
+              child: Icon(
+                Icons.check,
+                color: Colors.green,
+                size: 30,
+              ),
+            ),
+            Container(
+              child: Text(
+                'ЦН_тест',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+            Container(
+              child: Text(
+                'Денисов Петр Феликсович',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+            Container(
+              child: Text(
+                '27.03Ю2019 10:34:00 Денисов П.Ф. 1255ghjjshsgssh',
+                style: TextStyle(),
+                overflow: TextOverflow.visible,
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    // Контент Резолюция
+    Widget resolutionContent = GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InputScreen(
+              textFieldContent: resolutionContentText,
+              onPressed: (String str) {
+                Navigator.of(context).pop();
+                setState(() {
+                  resolutionContentText = str;
+                });
+              },
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 250, 250, 250),
+          border: Border.all(color: Colors.black, width: 1),
+        ),
+        padding: EdgeInsets.fromLTRB(7, 0, 7, 3),
+        child: Text('$resolutionContentText'),
+      ),
+    );
+
     return Container(
       child: SplitView(
         controller: SplitViewController(limits: [
@@ -156,317 +489,35 @@ class BTripCardView extends StatelessWidget {
         ),
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * leftSplitterWidth!,
+            width:
+                MediaQuery.of(context).size.width * widget.rightSplitterWidth!,
             child: MWPGroupBox(
-                'Командировка',
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              MWPAttribute(
-                                'Вид командировки',
-                                this.card.isInternationalText,
-                                containerWidth:
-                                    MediaQuery.of(context).size.width /
-                                                    2 *
-                                                    leftSplitterWidth! -
-                                                50 >=
-                                            0
-                                        ? MediaQuery.of(context).size.width /
-                                                2 *
-                                                leftSplitterWidth! -
-                                            50
-                                        : 0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              MWPAttribute(
-                                'Город',
-                                this.card.nCity,
-                                containerWidth:
-                                    MediaQuery.of(context).size.width /
-                                                    2 *
-                                                    leftSplitterWidth! -
-                                                50 >=
-                                            0
-                                        ? MediaQuery.of(context).size.width /
-                                                2 *
-                                                leftSplitterWidth! -
-                                            50
-                                        : 0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              MWPAttribute(
-                                'Продолжительность',
-                                this.card.calendarDaysText,
-                                containerWidth:
-                                    MediaQuery.of(context).size.width /
-                                                    2 *
-                                                    leftSplitterWidth! -
-                                                50 >=
-                                            0
-                                        ? MediaQuery.of(context).size.width /
-                                                2 *
-                                                leftSplitterWidth! -
-                                            50
-                                        : 0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              MWPAttribute(
-                                'Вид транспорта',
-                                this.card.transportType,
-                                containerWidth:
-                                    MediaQuery.of(context).size.width /
-                                                    2 *
-                                                    leftSplitterWidth! -
-                                                50 >=
-                                            0
-                                        ? MediaQuery.of(context).size.width /
-                                                2 *
-                                                leftSplitterWidth! -
-                                            50
-                                        : 0,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                        // ),
-                      ),
-                      MWPAttribute(
-                        'Период',
-                        'с ' +
-                            this.card.begDTText +
-                            ' по ' +
-                            this.card.endDTText,
-                        containerWidth: MediaQuery.of(context).size.width /
-                                        leftSplitterWidth! -
-                                    50 >=
-                                0
-                            ? MediaQuery.of(context).size.width /
-                                    leftSplitterWidth! -
-                                50
-                            : 0,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                )),
+              'Командировка',
+              businessTribSplitterContent,
+              contentWidgetForDialog: businessTribDialogContent,
+            ),
           ),
           MWPGroupBox(
-              'Цель',
-              Text(
-                this.card.goalText,
-                overflow: TextOverflow.visible,
-                maxLines: 1,
-              )),
+            'Цель',
+            targetContent,
+            contentWidgetForDialog: targetContent,
+          ),
           MWPGroupBox(
-              'Доп.информация',
-              Container(
-                child: Text(
-                  this.card.addInfText,
-                  overflow: TextOverflow.visible,
-                  maxLines: 1,
-                ),
-              )),
+            'Доп.информация',
+            additionalInformationContent,
+            contentWidgetForDialog: additionalInformationContent,
+          ),
           MWPGroupsBox(
             'Делегация',
-            Table(
-              border: TableBorder.symmetric(
-                inside: BorderSide(width: 1),
-                outside: BorderSide(width: 1),
-              ),
-              columnWidths: const <int, TableColumnWidth>{
-                // 0: IntrinsicColumnWidth(),
-                // 1: FlexColumnWidth(),
-                // 2: FixedColumnWidth(64),
-              },
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: <TableRow>[
-                TableRow(
-                  decoration: const BoxDecoration(
-                    color: Colors.black87,
-                  ),
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'ФИО',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Подразделение',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Должность',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'Кузьмина Ольга Юрьевна',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'ЦН_тест',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Главный специалист',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            delegationContent,
             'Согласование',
-            Table(
-              border: TableBorder.symmetric(
-                inside: BorderSide(width: 1),
-                outside: BorderSide(width: 1),
-              ),
-              columnWidths: const <int, TableColumnWidth>{
-                // 0: IntrinsicColumnWidth(),
-                // 1: FlexColumnWidth(),
-                // 2: FixedColumnWidth(64),
-              },
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: <TableRow>[
-                TableRow(
-                  decoration: const BoxDecoration(
-                    color: Colors.black87,
-                  ),
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'Статус',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Подразделение',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Согласующий',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Замечания/Комментарий',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  children: <Widget>[
-                    Container(
-                      child: Icon(Icons.check, color: Colors.green, size: 30,),
-                    ),
-                    Container(
-                      child: Text(
-                        'ЦН_тест',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        'Денисов Петр Феликсович',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        '27.03Ю2019 10:34:00 Денисов П.Ф. 1255ghjjshsgssh',
-                        style: TextStyle(),
-                        overflow: TextOverflow.visible,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            agreementContent,
             contentPadding: EdgeInsets.all(0),
           ),
           MWPGroupBox(
             'Резолюция',
-            TextField(
-              maxLines: null,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.fromLTRB(7, 0, 7, 3),
-              ),
-            ),
+            resolutionContent,
+            contentWidgetForDialog: Text('$resolutionContentText'),
             contentPadding: EdgeInsets.all(0),
           ),
         ],
@@ -495,7 +546,7 @@ class BTripListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color backColor;
     if (_isSelected) {
-      backColor = mwpAccentColorLight;
+      backColor = MWPColors.mwpAccentColorLight;
     } else {
       if (_isLight)
         backColor = new Color.fromARGB(255, 247, 247, 247);

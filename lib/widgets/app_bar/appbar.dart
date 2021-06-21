@@ -1,6 +1,6 @@
 import 'package:MWPX/views/settings_view.dart';
 import 'package:flutter/material.dart';
-import 'package:MWPX/styles/mwp_colors.dart' as mwpColors;
+import 'package:MWPX/styles/mwp_colors.dart';
 
 class MWPMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   MWPMainAppBar({Key? key})
@@ -45,7 +45,7 @@ class MWPMainAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return new AppBar(
-      backgroundColor: mwpColors.mwpAccentColor,
+      backgroundColor: MWPColors.mwpAccentColor,
       //leading: Icon(Icons.home),
       automaticallyImplyLeading: false,
       title: Text(

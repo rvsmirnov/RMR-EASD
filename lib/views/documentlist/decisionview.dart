@@ -51,7 +51,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
+                          color: MWPColors.mwpColorLight,
                           child: Text(
                             'DOKNR',
                             overflow: TextOverflow.ellipsis,
@@ -62,7 +62,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
+                          color: MWPColors.mwpColorLight,
                           child: Text(
                             'Получено',
                             overflow: TextOverflow.ellipsis,
@@ -73,7 +73,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
+                          color: MWPColors.mwpColorLight,
                           child: Text(
                             'Номер',
                             overflow: TextOverflow.ellipsis,
@@ -84,7 +84,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
+                          color: MWPColors.mwpColorLight,
                           child: Text(
                             'Автор',
                             overflow: TextOverflow.ellipsis,
@@ -95,7 +95,7 @@ class DecisionView extends StatelessWidget {
                       label: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
+                          color: MWPColors.mwpColorLight,
                           child: Text(
                             'Содержание',
                             overflow: TextOverflow.ellipsis,
@@ -143,8 +143,8 @@ class DecisionDataSource extends DataGridSource {
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           color: (dataGridCell.columnName == 'doknr' &&
                   int.parse(dataGridCell.value).remainder(2) == 0
-              ? mwpTableRowBackroundDark
-              : mwpTableRowBackroundLight),
+              ? MWPColors.mwpTableRowBackroundDark
+              : MWPColors.mwpTableRowBackroundLight),
           child: Text(
             dataGridCell.value.toString(),
             overflow: TextOverflow.ellipsis,

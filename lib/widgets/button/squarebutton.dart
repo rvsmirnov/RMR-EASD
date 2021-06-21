@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 
 /// Прямоугольная кнопка для Нижней панели РМР
 class MWPSquareButton extends StatelessWidget {
-
   ///Текст на кнопке
   final String _buttonTitle;
+  final void Function()? onPressed;
 
   ///Конструктор
-  MWPSquareButton(this._buttonTitle);
+  MWPSquareButton(this._buttonTitle, {this.onPressed});
 
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +22,7 @@ class MWPSquareButton extends StatelessWidget {
           //splashColor: Colors.lightGreen,
           highlightedBorderColor: Colors.green,
 
-          onPressed: () {},
+          onPressed: onPressed,
           child: Text(
             _buttonTitle,
             style: TextStyle(color: Colors.white),

@@ -1,3 +1,4 @@
+import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 
 /// Рамка с табами для групп элементов экрана Командировок
@@ -41,75 +42,102 @@ class _MWPGroupsBoxState extends State<MWPGroupsBox>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Material(
-              child: TabBar(
-                isScrollable: true,
-                onTap: (tabInt) {
-                  // print('tabInt $tabInt');
-                  setState(() {
-                    intTab = tabInt;
-                  });
-                },
-                padding: EdgeInsets.all(0),
-                labelPadding: EdgeInsets.all(0),
-                indicatorPadding: EdgeInsets.all(0),
-                indicator: UnderlineTabIndicator(
-                  insets: EdgeInsets.all(5),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    TabBar(
+                      isScrollable: true,
+                      onTap: (tabInt) {
+                        // print('tabInt $tabInt');
+                        setState(() {
+                          intTab = tabInt;
+                        });
+                      },
+                      padding: EdgeInsets.all(0),
+                      labelPadding: EdgeInsets.all(0),
+                      indicatorPadding: EdgeInsets.all(0),
+                      indicator: UnderlineTabIndicator(
+                        insets: EdgeInsets.all(5),
+                      ),
+                      indicatorWeight: 0,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      controller: _tabController,
+                      tabs: [
+                        Tab(
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              padding: EdgeInsets.all(7),
+                              decoration: BoxDecoration(
+                                  color: intTab == 0
+                                      ? Color.fromARGB(255, 226, 226, 226)
+                                      : Colors.white,
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(7),
+                                      topRight: Radius.circular(7))),
+                              child: Container(
+                                child: Text(
+                                  widget._frameName,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black87),
+                                  overflow: TextOverflow.visible,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              padding: EdgeInsets.all(7),
+                              decoration: BoxDecoration(
+                                  color: intTab == 1
+                                      ? Color.fromARGB(255, 226, 226, 226)
+                                      : Colors.white,
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(7),
+                                      topRight: Radius.circular(7))),
+                              child: Container(
+                                child: Text(
+                                  widget._frameName2,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black87),
+                                  overflow: TextOverflow.visible,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 30,
+                      child: IconButton(
+                        onPressed: () {
+                          Dialogs.infoDialog(
+                            context: context,
+                            title: intTab == 0
+                                ? widget._frameName
+                                : widget._frameName2,
+                            content: intTab == 0
+                                ? widget._contentWidget
+                                : widget._contentWidget2,
+                          );
+                        },
+                        icon: Icon(Icons.search),
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
                 ),
-                indicatorWeight: 0,
-                indicatorSize: TabBarIndicatorSize.tab,
-                controller: _tabController,
-                tabs: [
-                  Tab(
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            color: intTab == 0
-                                ? Color.fromARGB(255, 226, 226, 226)
-                                : Colors.white,
-                            border: Border.all(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(7),
-                                topRight: Radius.circular(7))),
-                        child: Container(
-                          child: Text(
-                            widget._frameName,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.black87),
-                            overflow: TextOverflow.visible,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            color: intTab == 1
-                                ? Color.fromARGB(255, 226, 226, 226)
-                                : Colors.white,
-                            border: Border.all(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(7),
-                                topRight: Radius.circular(7))),
-                        child: Container(
-                          child: Text(
-                            widget._frameName2,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.black87),
-                            overflow: TextOverflow.visible,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
             Expanded(

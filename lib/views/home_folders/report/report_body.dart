@@ -18,7 +18,7 @@ class ReportBody extends StatelessWidget {
 
     return BlocConsumer<ReportBloc, ReportState>(listener: (context, state) {
       if (state is ReportFailure) {
-        Dialogs.infoDialog(
+        Dialogs.errorDialog(
           context: context,
           content: Text('${state.error}'),
         );

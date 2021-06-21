@@ -19,7 +19,7 @@ class MWPFolderTileView extends StatelessWidget {
 
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is HomeFailure) {
-        Dialogs.infoDialog(
+        Dialogs.errorDialog(
           context: context,
           content: Text('${state.error}'),
         );

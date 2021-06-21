@@ -3,3 +3,4 @@ const String viewNameSettings = 'SET';
 const String viewNameBTrips = 'BTR';
 const String viewNameVacations = 'VAC';
 const String viewNameDecisionList = 'DecList';
+const String viewNameInputScreen = 'INS';
