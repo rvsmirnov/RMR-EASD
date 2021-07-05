@@ -29,7 +29,16 @@ dependencies:
   provider: ^5.0.0
   equatable: ^2.0.0
   flutter_svg: ^0.22.0
-  split_view: ^3.1.0
+  split_view: ^3.0.1
+  flutter_colorpicker: ^0.5.0
+  painter: ^2.0.0
+  pdf_image_renderer: ^0.6.1
+  pdf: ^3.4.2
+  path_provider: ^2.0.2
+  open_file: ^3.2.1
+  printing: ^5.4.2
+  # native_pdf_renderer: ^3.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +50,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+   - assets/images/
+   - assets/files/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

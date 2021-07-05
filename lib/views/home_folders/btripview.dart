@@ -1,6 +1,7 @@
 import 'package:MWPX/data_structure/card/body/btrip/BTripCard.dart';
 import 'package:MWPX/views/home_folders/input_screen/input_screen.dart';
 import 'package:MWPX/widgets/MWPGroupsBox.dart';
+import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/MWPAttribute.dart';
 import 'package:MWPX/widgets/MWPGroupBox.dart';
@@ -67,6 +68,7 @@ class _BTripViewState extends State<BTripView> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -447,19 +449,29 @@ class _BTripCardViewState extends State<BTripCardView> {
     // Контент Резолюция
     Widget resolutionContent = GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => InputScreen(
-              textFieldContent: resolutionContentText,
-              onPressed: (String str) {
-                Navigator.of(context).pop();
-                setState(() {
-                  resolutionContentText = str;
-                });
-              },
-            ),
-          ),
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => InputScreen(
+        //       textFieldContent: resolutionContentText,
+        //       onPressed: (String str) {
+        //         Navigator.of(context).pop();
+        //         setState(() {
+        //           resolutionContentText = str;
+        //         });
+        //       },
+        //     ),
+        //   ),
+        // );
+        Dialogs.inputDialog(
+          context: context,
+          title: 'eee',
+          content: resolutionContentText,
+          onPressed: (String str) {
+            setState(() {
+              resolutionContentText = str;
+            });
+          },
         );
       },
       child: Container(

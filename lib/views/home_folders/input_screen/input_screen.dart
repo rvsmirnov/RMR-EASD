@@ -1,13 +1,8 @@
-import 'package:MWPX/blocs/home/home_bloc.dart';
-import 'package:MWPX/services/home_service.dart';
-import 'package:MWPX/views/home/home_body.dart';
 import 'package:MWPX/widgets/button/squarebutton.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/constants.dart' as Constants;
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 /// Страница с плитками папок
 class InputScreen extends StatefulWidget {

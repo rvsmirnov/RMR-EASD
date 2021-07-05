@@ -1,6 +1,17 @@
 import 'package:MWPX/blocs/home/home_bloc.dart';
-import 'package:MWPX/views/documentlist/decisionview.dart';
+// import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:MWPX/views/home_folders/btripview.dart';
+import 'package:MWPX/views/home_folders/documentlist/decisionview.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/draw_screen.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/draw_screen2.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen3.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen4.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen5.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen5_0.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen6.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen7.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen8.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen9.dart';
 import 'package:MWPX/views/home_folders/report/report_screen.dart';
 import 'package:MWPX/views/home_folders/vacationview.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
@@ -110,6 +121,50 @@ class MWPFolderTile extends StatelessWidget {
           if (this._folderCode == 00004) {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ReportScreen()));
+          }
+          if (this._folderCode == 00005) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ExamplePage()));
+          }
+          if (this._folderCode == 00006) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage4(
+                  title: 'Пример графических работ',
+                ),
+              ),
+            );
+          }
+          if (this._folderCode == 00007) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage5(
+                  title: 'Пример графических работ 2',
+                ),
+              ),
+            );
+          }
+          if (this._folderCode == 00008) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    Draw2(),
+              ),
+            );
+          }
+          //
+          if (this._folderCode == 00009) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage9(
+                  title: 'Screen 9',
+                ),
+              ),
+            );
           }
         },
         //color: Colors.lightGreen,
