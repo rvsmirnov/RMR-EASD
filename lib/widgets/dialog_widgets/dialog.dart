@@ -180,4 +180,58 @@ class Dialogs {
       ),
     );
   }
+
+  static Future<dynamic> infoDialogRK({
+    context,
+    Widget? titleWidget,
+    Widget? content,
+  }) {
+    return showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return
+            // Theme(
+            //   data: Theme.of(context).copyWith(
+            //       // dialogBackgroundColor: Colors.white,
+            //       textTheme: TextTheme(
+            //           bodyText1: TextStyle(
+            //         // color: Colors.black87,
+            //       ))),
+            //   child:
+            AlertDialog(
+          title: titleWidget,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0))),
+          actions: [
+            Center(
+              child: MWPSquareButton(
+                'Закрыть',
+                // borderColor: Colors.black,
+                textColor: Colors.black,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+          content: Container(
+            decoration: BoxDecoration(
+              // border: Border(
+              //   top: BorderSide(
+              //     width: 1,
+              //     color: Colors.black,
+              //   ),
+              // ),
+            ),
+            // width: 800,
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: content!,
+          ),
+          // ),
+        );
+      },
+    );
+  }
 }

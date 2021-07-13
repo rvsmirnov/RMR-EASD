@@ -1,7 +1,9 @@
 import 'package:MWPX/blocs/home/home_bloc.dart';
+import 'package:MWPX/views/home_folders/audio/audio_play.dart';
+import 'package:MWPX/views/home_folders/audio/audio_record.dart';
 // import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:MWPX/views/home_folders/btripview.dart';
-import 'package:MWPX/views/home_folders/documentlist/decisionview.dart';
+import 'package:MWPX/views/home_folders/decision/decision_list/decisionview.dart';
 import 'package:MWPX/views/home_folders/graphic_notes/draw_screen.dart';
 import 'package:MWPX/views/home_folders/graphic_notes/draw_screen2.dart';
 import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen3.dart';
@@ -122,20 +124,19 @@ class MWPFolderTile extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ReportScreen()));
           }
-          if (this._folderCode == 00005) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ExamplePage()));
-          }
-          if (this._folderCode == 00006) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MyHomePage4(
-                  title: 'Пример графических работ',
-                ),
-              ),
-            );
-          }
+          // if (this._folderCode == 00005) {
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => SimplePlayback()));
+          // }
+          // if (this._folderCode == 00006) {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => SimpleRecorder(
+          //       ),
+          //     ),
+          //   );
+          // }
           if (this._folderCode == 00007) {
             Navigator.push(
               context,

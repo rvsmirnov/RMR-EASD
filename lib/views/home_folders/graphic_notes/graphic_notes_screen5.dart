@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
+import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -204,6 +205,7 @@ class _MyHomePage5State extends State<MyHomePage5> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MWPColors.mwpAccentColor,
         title: Text(widget.title!),
         actions: [
           ...actions,
@@ -517,6 +519,7 @@ class _MyHomePage5State extends State<MyHomePage5> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton.extended(
+            backgroundColor: MWPColors.mwpAccentColor,
             heroTag: '1',
             onPressed: _edit,
             tooltip: 'Load',
@@ -524,6 +527,7 @@ class _MyHomePage5State extends State<MyHomePage5> {
             label: Text("Modify"),
           ),
           FloatingActionButton.extended(
+            backgroundColor: MWPColors.mwpAccentColor,
             heroTag: '2',
             onPressed: _open,
             tooltip: 'Open',
