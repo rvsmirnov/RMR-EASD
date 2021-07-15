@@ -11,8 +11,12 @@ class SharedPrefsService {
 
   Future<List<String>> getStringList({String? key}) async {
     final SharedPreferences prefs = await _prefs;
-    List<String>? stringList = prefs.getStringList(key!);
-    return stringList!;
-  }
 
+    bool containsKey = prefs.containsKey(key!);
+    if (containsKey) {
+      List<String>? stringList = prefs.getStringList(key);
+      return stringList!;
+    }
+    return <String>[];
+  }
 }

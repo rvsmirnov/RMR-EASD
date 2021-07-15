@@ -199,8 +199,11 @@ class _LeftCardViewState extends State<LeftCardView> {
                     Row(
                       children: [
                         IconsService.getIconRK(widget.cellsList![1].value),
+                        //этого свойства нет в нашей таблице и поэтому сюда не передаем
+                        // decisionItem.documentType = '';
+                        // decisionItem.documentTypeText = '';
                         Text(
-                          'От куда слово Приказ? ${widget.cellsList![3].value}',
+                          'Тип документа ${widget.cellsList![3].value}',
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                       ],
@@ -239,7 +242,7 @@ class _LeftCardViewState extends State<LeftCardView> {
                     ),
                   ],
                 ),
-                content: Text(widget.cellsList![5].value.toString()),
+                content: Text('${widget.cellsList![5].value.toString()} doknr: ${widget.cellsList![6].value.toString()} dokvr: ${widget.cellsList![7].value.toString()} doktl: ${widget.cellsList![8].value.toString()} wfItem: ${widget.cellsList![9].value.toString()}'),
               );
             },
             child: Center(

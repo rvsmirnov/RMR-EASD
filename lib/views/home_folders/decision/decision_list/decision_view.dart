@@ -8,6 +8,8 @@ import 'package:MWPX/views/home_folders/decision/decision_card/decision_card.dar
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
+import 'package:MWPX/widgets/data_grid_widgets/container_cell.dart';
+import 'package:MWPX/widgets/data_grid_widgets/container_text_cell.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/constants.dart' as Constants;
@@ -49,7 +51,7 @@ class _DecisionViewBodyState extends State<DecisionViewBody> {
   @override
   Widget build(BuildContext context) {
     var buttonBar = new MWPButtonBar();
-    buttonBar.configureButtonBar(Constants.viewNameDecisionList);
+    buttonBar.configureButtonBar(Constants.viewNameDecision);
 
     List<DecisionListItem> _documentList = [];
 
@@ -63,6 +65,12 @@ class _DecisionViewBodyState extends State<DecisionViewBody> {
       decisionItem.regDATE = DateTime.now().add(new Duration(days: -1 * i));
       decisionItem.rcvdDT = DateTime.now().add(new Duration(days: -1 * i));
       decisionItem.mainAuthor = "Иванов$i Степан$i Петрович$i";
+      // decisionItem.doknr = i.toString();
+      // decisionItem.dokar = "01$i";
+      decisionItem.dokvr = "00$i";
+      decisionItem.doktl = "000$i";
+      decisionItem.wfItem = "02$i";
+      decisionItem.logsys = 'logsys';
 
       _documentList.add(decisionItem);
     }
@@ -263,6 +271,17 @@ class DecisionDataSource extends DataGridSource {
                   columnName: 'mainAuthor', value: dataGridRow.mainAuthor),
               DataGridCell<String>(
                   columnName: 'content', value: dataGridRow.content),
+              // Передаем данные, но не отображаем
+              DataGridCell<String>(
+                  columnName: 'doknr', value: dataGridRow.doknr),
+              DataGridCell<String>(
+                  columnName: 'dokvr', value: dataGridRow.dokvr),
+              DataGridCell<String>(
+                  columnName: 'doktl', value: dataGridRow.doktl),
+              DataGridCell<String>(
+                  columnName: 'wfItem', value: dataGridRow.wfItem),
+              DataGridCell<String>(
+                  columnName: 'logsys', value: dataGridRow.logsys),
             ]))
         .toList();
   }
@@ -271,139 +290,69 @@ class DecisionDataSource extends DataGridSource {
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
-    // print('- - - - row $row');
-    // print('start buildRow');
-    // print('row[0] ${dataGridRows.}');
-    // print('dataGridRows.first ${dataGridRows.first.getCells().first.value}');
-    // print('dataGridRows.first ${dataGridRows.}');
-
-    // int itemNumber;
-
-    // print('_decisionListSource.sortedColumns ${_decisionListSource.sortedColumns}');
-
-    // Это все ячейки, кроме первых двух
-    Widget getContainerCell(
-        {String? textValue,
-        Color? color,
-        List<DataGridCell<dynamic>>? cellsList}) {
-      return Builder(builder: (BuildContext context) {
-        // print('- - - - row $row');
-        return InkWell(
-          onTap: () {
-            // print('-- cellsList in onTap in getContainerCell $cellsList');
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DecisionCard(
-                  cellsList: cellsList,
-                ),
-              ),
-            );
-          },
-          child: Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            color: color,
-            child: Text(
-              textValue!,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        );
-      });
-    }
-
-    Color getRowBackgroundColor() {
-      final int index = dataGridRows.indexOf(row);
-      // print('index of row $index');
-      if (index % 2 != 0) {
-        return MWPColors.mwpTableRowBackroundLight;
-      }
-
-      return MWPColors.mwpTableRowBackroundDark;
-    }
+    final int index = dataGridRows.indexOf(row);
 
     return DataGridRowAdapter(cells: <Widget>[
-      Builder(builder: (BuildContext context) {
-        // print('- - - - row $row');
-        List<DataGridCell<dynamic>> cellsList = row.getCells();
-
-        return InkWell(
-          onTap: () {
-            // print('-- cellsList in onTap in DataGridRowAdapter $cellsList');
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DecisionCard(
-                  cellsList: cellsList,
-                ),
-              ),
-            );
-          },
-          child: Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            color: getRowBackgroundColor(),
-            child: Text(
-              row.getCells()[0].value == 'true' ? '!' : '',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 28,
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
+      ContainerCell(
+        routeTypeCard: 'decision',
+        cellsList: row.getCells(),
+        childWidget: Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          color: DataGridService.getRowBackgroundColor(index),
+          child: Text(
+            row.getCells()[0].value == 'true' ? '!' : '',
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 28,
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        );
-      }),
-
-      Builder(builder: (BuildContext context) {
-        List<DataGridCell<dynamic>> cellsList = row.getCells();
-        return InkWell(
-          onTap: () {
-            // print('-- cellsList in onTap in Builder $cellsList');
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DecisionCard(
-                  cellsList: cellsList,
-                ),
-              ),
-            );
-          },
-          child: Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              color: getRowBackgroundColor(),
-              child: IconsService.getIconRK(row.getCells()[1].value)),
-        );
-      }),
-      // getContainerCell(
-      //   textValue: row.getCells()[2].value.toString(),
-      //   color: getRowBackgroundColor(),
-      // ),
-      getContainerCell(
-        textValue: row.getCells()[2].value.toString(),
-        color: getRowBackgroundColor(),
-        cellsList: row.getCells(),
+        ),
       ),
-      getContainerCell(
-        textValue: row.getCells()[3].value.toString(),
-        color: getRowBackgroundColor(),
+      ContainerCell(
+        routeTypeCard: 'decision',
         cellsList: row.getCells(),
+        childWidget: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            color: DataGridService.getRowBackgroundColor(index),
+            child: IconsService.getIconRK(row.getCells()[1].value)),
       ),
-      getContainerCell(
-        textValue: row.getCells()[4].value.toString(),
-        color: getRowBackgroundColor(),
+      ContainerCell(
+        routeTypeCard: 'decision',
         cellsList: row.getCells(),
+        childWidget: ContainerTextCell(
+          textValue: row.getCells()[2].value.toString(),
+          color: DataGridService.getRowBackgroundColor(index),
+        ),
       ),
-      getContainerCell(
-        textValue: row.getCells()[5].value.toString(),
-        color: getRowBackgroundColor(),
+      ContainerCell(
+        routeTypeCard: 'decision',
         cellsList: row.getCells(),
+        childWidget: ContainerTextCell(
+          textValue: row.getCells()[3].value.toString(),
+          color: DataGridService.getRowBackgroundColor(index),
+        ),
+      ),
+      ContainerCell(
+        routeTypeCard: 'decision',
+        cellsList: row.getCells(),
+        childWidget: ContainerTextCell(
+          textValue: row.getCells()[4].value.toString(),
+          color: DataGridService.getRowBackgroundColor(index),
+        ),
+      ),
+      ContainerCell(
+        routeTypeCard: 'decision',
+        cellsList: row.getCells(),
+        childWidget: ContainerTextCell(
+          textValue: row.getCells()[5].value.toString(),
+          color: DataGridService.getRowBackgroundColor(index),
+        ),
       ),
     ]);
-
     //   row.getCells().map<Widget>((dataGridCell) {
     // // itemNumber++;
     //   return Container(

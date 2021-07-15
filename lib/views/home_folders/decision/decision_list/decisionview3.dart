@@ -17,7 +17,7 @@ class DecisionView3 extends StatelessWidget {
     appBar.configureAppBar('На решение', false, true);
 
     var buttonBar = new MWPButtonBar();
-    buttonBar.configureButtonBar(Constants.viewNameDecisionList);
+    buttonBar.configureButtonBar(Constants.viewNameDecision);
 
     List<DecisionListItem> _documentList = [];
 

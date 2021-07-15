@@ -5,26 +5,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-part 'decision_list_event.dart';
-part 'decision_list_state.dart';
+part 'control_list_event.dart';
+part 'control_list_state.dart';
 
-class DecisionListBloc extends Bloc<DecisionListEvent, DecisionListState> {
+class ControlListBloc extends Bloc<ControlListEvent, ControlListState> {
   final SharedPrefsService? sharedPrefsService;
   final DataGridService? dataGridService;
 
-  DecisionListBloc({
+  ControlListBloc({
     @required this.sharedPrefsService,
     @required this.dataGridService,
   })  : assert(sharedPrefsService != null, dataGridService != null),
-        super(DecisionListInitial());
+        super(ControlListInitial());
 
   @override
-  Stream<DecisionListState> mapEventToState(DecisionListEvent event) async* {
+  Stream<ControlListState> mapEventToState(ControlListEvent event) async* {
     if (event is OpenScreen) {
       try {
-        yield DecisionListLoading();
+        yield ControlListLoading();
         List<String> stringList =
-            await sharedPrefsService!.getStringList(key: 'decision_sort_data');
+            await sharedPrefsService!.getStringList(key: 'control_sort_data');
         List<SortColumnDetails>? sortDataList = <SortColumnDetails>[];
         if (stringList != null) {
           int listCount = stringList.length;
@@ -36,6 +36,11 @@ class DecisionListBloc extends Bloc<DecisionListEvent, DecisionListState> {
               DataGridSortDirection sortDirection =
                   dataGridService!.getsortDirectionValue(stringList[ii]);
               ii++;
+              if (columnName == null || sortDirection == null) {
+                yield ControlListSortInit(
+                  sortDataList: <SortColumnDetails>[],
+                );
+              }
               print('sortDirection $sortDirection');
               sortDataList.add(
                 SortColumnDetails(
@@ -43,22 +48,21 @@ class DecisionListBloc extends Bloc<DecisionListEvent, DecisionListState> {
                   sortDirection: sortDirection,
                 ),
               );
-
             }
           }
         }
-        yield DecisionListSortInit(
+        yield ControlListSortInit(
           sortDataList: sortDataList,
         );
       } catch (error) {
-        print('error in DecisionListBloc $error');
-        yield DecisionListFailure(error: error.toString());
+        print('error in ControlListBloc $error');
+        yield ControlListFailure(error: error.toString());
       }
     }
 
     if (event is SortDataSave) {
       try {
-        yield DecisionListLoading();
+        yield ControlListLoading();
         print('SortDataSave sortDataList ${event.sortDataList}');
         List<SortColumnDetails>? sortDataList = event.sortDataList;
         List<String> stringList = <String>[];
@@ -71,10 +75,10 @@ class DecisionListBloc extends Bloc<DecisionListEvent, DecisionListState> {
           stringList.add(element.sortDirection.toString());
         });
         await sharedPrefsService!
-            .setStringList(key: 'decision_sort_data', stringList: stringList);
+            .setStringList(key: 'control_sort_data', stringList: stringList);
       } catch (error) {
-        print('error in DecisionListBloc $error');
-        yield DecisionListFailure(error: error.toString());
+        print('error in ControlListBloc $error');
+        yield ControlListFailure(error: error.toString());
       }
     }
   }

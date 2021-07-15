@@ -25,7 +25,7 @@ class MWPButtonBar extends StatelessWidget {
       button_list.add(MWPSquareButton('Вернуть с\nзамечаниями'));
     }
 
-    if (viewName == Constants.viewNameDecisionList) {
+    if (viewName == Constants.viewNameDecision) {
       button_list.add(MWPCircleButton(
         buttonChild: Icon(Icons.sync, color: Colors.white),
       ));
