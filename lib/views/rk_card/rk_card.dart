@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 
-import 'package:MWPX/blocs/home_folders/decision/decision_card/decision_card_bloc.dart';
+import 'package:MWPX/blocs/rk_card/rk_card_bloc.dart';
 import 'package:MWPX/data_structure/card/body/incoming/IncomingCard.dart';
-import 'package:MWPX/data_structure/card/list/DecisionListItem.dart';
-import 'package:MWPX/services/icons_service.dart';
 import 'package:MWPX/services/report_service.dart';
+import 'package:MWPX/views/rk_card/rk_left_header.dart';
+import 'package:MWPX/views/rk_card/rk_left_header_simple.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button/circlebutton.dart';
-import 'package:MWPX/widgets/button/rounded_button2.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/MWPGroupBox.dart';
@@ -24,47 +23,54 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class DecisionCard extends StatelessWidget {
+class RKCard extends StatelessWidget {
   final List<DataGridCell<dynamic>>? cellsList;
+  final String? cardTitle;
+  final String? dokar;
 
-  const DecisionCard({
+  const RKCard({
     this.cellsList,
+    this.cardTitle = '',
+    this.dokar = '',
   });
 
   @override
   Widget build(BuildContext context) {
-    print('---0--- cellsList in DecisionCard $cellsList');
+    // print('---0--- cellsList in RKCard $cellsList');
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На решение', false, true);
+    appBar.configureAppBar(cardTitle!, false, true);
     ReportService reportService = Provider.of<ReportService>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: BlocProvider(
-        create: (BuildContext context) => DecisionCardBloc(
+        create: (BuildContext context) => RKCardBloc(
           reportService: reportService,
         )..add(OpenScreen()),
-        child: DecisionCardBody(
+        child: RKCardBody(
           cellsList: cellsList,
+          dokar: dokar,
         ),
       ),
     );
   }
 }
 
-class DecisionCardBody extends StatefulWidget {
+class RKCardBody extends StatefulWidget {
+  final String? dokar;
   final List<DataGridCell<dynamic>>? cellsList;
 
-  const DecisionCardBody({
+  const RKCardBody({
+    this.dokar = '',
     this.cellsList,
   });
 
   @override
-  State<DecisionCardBody> createState() => _DecisionCardBodyState();
+  State<RKCardBody> createState() => _RKCardBodyState();
 }
 
-class _DecisionCardBodyState extends State<DecisionCardBody> {
+class _RKCardBodyState extends State<RKCardBody> {
   IncomingCard _selectedCard = new IncomingCard();
   double rightSplitterWidth = 0.5;
   double leftSplitterWidth = 0.5;
@@ -74,9 +80,9 @@ class _DecisionCardBodyState extends State<DecisionCardBody> {
     var buttonBar = new MWPButtonBar();
     buttonBar.configureButtonBar(Constants.viewNameBTrips);
 
-    return BlocConsumer<DecisionCardBloc, DecisionCardState>(
+    return BlocConsumer<RKCardBloc, RKCardState>(
       listener: (context, state) {
-        if (state is DecisionCardFailure) {
+        if (state is RKCardFailure) {
           Dialogs.errorDialog(
             context: context,
             content: Text('${state.error}'),
@@ -106,18 +112,33 @@ class _DecisionCardBodyState extends State<DecisionCardBody> {
                       isActive: true,
                     ),
                     children: [
-                      Container(
-                          child: LeftCardView(
-                        _selectedCard,
-                        leftSplitterWidth: leftSplitterWidth,
-                        cellsList: widget.cellsList,
-                      )),
-                      Container(
-                        child: RightCardView(
-                          _selectedCard,
-                          rightSplitterWidth: rightSplitterWidth,
+                      Navigator(
+                        onGenerateRoute: (settings) => MaterialPageRoute(
+                          builder: (context) => Container(
+                              child: LeftCardView(
+                            _selectedCard,
+                            leftSplitterWidth: leftSplitterWidth,
+                            cellsList: widget.cellsList,
+                            dokar: widget.dokar,
+                          )),
                         ),
                       ),
+                      // Navigator(
+                      //   onGenerateRoute: (settings) => MaterialPageRoute(
+                      //     builder: (context) => Container(
+                      //       child: RightCardView(
+                      //         _selectedCard,
+                      //         rightSplitterWidth: rightSplitterWidth,
+                      //         dokar: widget.dokar,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      RightCardView(
+                              _selectedCard,
+                              rightSplitterWidth: rightSplitterWidth,
+                              dokar: widget.dokar,
+                            ),
                     ],
                   ),
                 ),
@@ -130,11 +151,17 @@ class _DecisionCardBodyState extends State<DecisionCardBody> {
 }
 
 class LeftCardView extends StatefulWidget {
+  final String? dokar;
   final IncomingCard card;
   final double? leftSplitterWidth;
   final List<DataGridCell<dynamic>>? cellsList;
 
-  LeftCardView(this.card, {this.leftSplitterWidth, this.cellsList});
+  LeftCardView(
+    this.card, {
+    this.leftSplitterWidth,
+    this.cellsList,
+    this.dokar,
+  });
 
   @override
   State<LeftCardView> createState() => _LeftCardViewState();
@@ -164,106 +191,47 @@ class _LeftCardViewState extends State<LeftCardView> {
 
   @override
   Widget build(BuildContext context) {
+    // print('screen width ${MediaQuery.of(context).size.width}');
     List<String> fileNameList = [];
 
     for (int i = 1; i < 10; i++) {
       fileNameList.add('$i. Название документа из файлов');
     }
 
-    Widget leftHeaderContent = Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Checkbox(
-          value: checkedValue,
-          onChanged: (bool? newValue) {
-            setState(() {
-              checkedValue = newValue!;
-            });
-          },
-        ),
-        Text(
-          'К совещанию',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-          child: RoundedButton2(
-            onPressed: () {
-              Dialogs.infoDialogRK(
-                context: context,
-                titleWidget: Column(
-                  children: [
-                    Row(
-                      children: [
-                        IconsService.getIconRK(widget.cellsList![1].value),
-                        //этого свойства нет в нашей таблице и поэтому сюда не передаем
-                        // decisionItem.documentType = '';
-                        // decisionItem.documentTypeText = '';
-                        Text(
-                          'Тип документа ${widget.cellsList![3].value}',
-                          style: TextStyle(fontWeight: FontWeight.normal),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            width: 1,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Автор: ${widget.cellsList![4].value}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              'Получено: ${widget.cellsList![2].value}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                content: Text(
-                    '${widget.cellsList![5].value.toString()} doknr: ${widget.cellsList![6].value.toString()} dokvr: ${widget.cellsList![7].value.toString()} doktl: ${widget.cellsList![8].value.toString()} wfItem: ${widget.cellsList![9].value.toString()}'),
-              );
-            },
-            child: Center(
-              child: Container(
-                height: 20,
-                child: Text(
-                  'РК',
-                  overflow: TextOverflow.visible,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+    Widget getRKLeftHeader(String dokar, BuildContext context) {
+      if (dokar == 'VHD') {
+        return RKSimpleLeftHeader(
+          buildContext: context,
+          cellsList: widget.cellsList,
+          leftSplitterWidth: widget.leftSplitterWidth,
+        );
+      }
+      if (dokar == 'ORD') {
+        return RKLeftHeader(
+          dokar: dokar,
+          cellsList: widget.cellsList,
+          leftSplitterWidth: widget.leftSplitterWidth,
+          rightButtonText: 'Лист согласования',
+        );
+      }
+      if (dokar == 'ISD') {
+        return RKLeftHeader(
+          dokar: dokar,
+          cellsList: widget.cellsList,
+          leftSplitterWidth: widget.leftSplitterWidth,
+          rightButtonText: 'Лист согласования',
+        );
+      }
+      if (dokar == 'ДКИ') {
+        return RKLeftHeader(
+          dokar: dokar,
+          cellsList: widget.cellsList,
+          leftSplitterWidth: widget.leftSplitterWidth,
+          rightButtonText: 'Ход исполнения',
+        );
+      }
+      return SizedBox();
+    }
 
     return Row(
       children: [
@@ -272,62 +240,7 @@ class _LeftCardViewState extends State<LeftCardView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 57,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1, color: Colors.black),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Checkbox(
-                                value: checkedValue,
-                                onChanged: (bool? newValue) {
-                                  setState(() {
-                                    checkedValue = newValue!;
-                                  });
-                                },
-                              ),
-                              RoundedButton2(
-                                onPressed: () {},
-                                child: Icon(
-                                  Icons.insert_drive_file,
-                                  color: Colors.black,
-                                  size: 22,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                child: RoundedButton2(
-                                  onPressed: () {},
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      widget.leftSplitterWidth! < 0.3
-                          ? Expanded(
-                              child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: leftHeaderContent),
-                            )
-                          : leftHeaderContent
-                    ],
-                  ),
-                ),
+                getRKLeftHeader(widget.dokar!, context),
                 Container(
                   height: MediaQuery.of(context).size.height / 5.5,
                   child: Wrap(
@@ -632,8 +545,9 @@ class _LeftCardViewState extends State<LeftCardView> {
 class RightCardView extends StatefulWidget {
   final IncomingCard card;
   final double? rightSplitterWidth;
+  final String? dokar;
 
-  RightCardView(this.card, {this.rightSplitterWidth});
+  RightCardView(this.card, {this.rightSplitterWidth, this.dokar = ''});
 
   @override
   State<RightCardView> createState() => _RightCardViewState();
@@ -667,10 +581,10 @@ class _RightCardViewState extends State<RightCardView> {
   Widget build(BuildContext context) {
     double minWeightLimit = getWeightLimit(MediaQuery.of(context).size.height);
 
-    // Контент Проект резолюции
-    Widget resolutionProjectContent = Container(
+    // Контент Доп. информация
+    Widget additionalInformationContent = Container(
       child: Text(
-        'Список коментариев: iterationTable',
+        'this.widget.card.addInfText',
         overflow: TextOverflow.visible,
         maxLines: 1,
       ),
@@ -709,6 +623,22 @@ class _RightCardViewState extends State<RightCardView> {
       ),
     );
 
+    String getGroupBoxName(String dokar) {
+      if (dokar == 'VHD') {
+        return 'Проект резолюции';
+      }
+      if (dokar == 'ORD') {
+        return 'Доп.информация';
+      }
+      if (dokar == 'ISD') {
+        return 'Доп.информация';
+      }
+      if (dokar == 'ДКИ') {
+        return 'Доп.информация';
+      }
+      return '';
+    }
+
     return Container(
       child: SplitView(
         controller: SplitViewController(limits: [
@@ -726,9 +656,9 @@ class _RightCardViewState extends State<RightCardView> {
         ),
         children: [
           MWPGroupBox(
-            'Проект резолюции',
-            resolutionProjectContent,
-            contentWidgetForDialog: resolutionProjectContent,
+            getGroupBoxName(widget.dokar!),
+            additionalInformationContent,
+            contentWidgetForDialog: additionalInformationContent,
             titleDecorationOn: false,
             infoDialogIconOn: false,
             buttonsList: [
@@ -738,10 +668,7 @@ class _RightCardViewState extends State<RightCardView> {
                   color: Colors.black,
                   size: 34,
                 ),
-                onPressed: () {
-                  // print('-- keyboard_arrow_down');
-                  // setState(() {});
-                },
+                onPressed: () {},
                 borderWidth: 2,
                 borderColor: Colors.black,
               )

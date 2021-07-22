@@ -24,7 +24,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class SignView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На подписание', false, true);
+    appBar.configureAppBar('На подписание (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);
@@ -58,7 +58,7 @@ class _SignViewBodyState extends State<SignViewBody> {
     for (int i = 0; i < 100; i++) {
       SignListItem signItem = new SignListItem();
       signItem.cardUrgent = true;
-      signItem.dokar = "VHD";
+      signItem.dokar = "ISD";
       signItem.doknr = i.toString();
       signItem.content = "Документ $i";
       signItem.regNUM = i.toString();
@@ -262,6 +262,7 @@ class DecisionDataSource extends DataGridSource {
 
     return DataGridRowAdapter(cells: <Widget>[
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'sign',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -280,6 +281,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'sign',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -289,6 +291,7 @@ class DecisionDataSource extends DataGridSource {
             child: IconsService.getIconRK(row.getCells()[1].value)),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'sign',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -297,6 +300,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'sign',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -305,6 +309,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'sign',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(

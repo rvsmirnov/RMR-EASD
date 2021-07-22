@@ -12,9 +12,13 @@ class MWPColors {
 
   static Color mwpFilePanelButtonBackground = Color.fromRGBO(195, 195, 195, 1);
 
-  ///<!--Чередование цветов в списках - темный-->
-  static Color mwpTableRowBackroundDark = Color.fromRGBO(226, 226, 226, 1);
+  // Чередование цветов в списках - темный
+  static const Color mwpTableRowBackroundDark = Color.fromRGBO(226, 226, 226, 1);
 
-  ///<!--Чередование цветов в списках - светлый-->
+  // Чередование цветов в списках - светлый
   static Color mwpTableRowBackroundLight = Color.fromRGBO(247, 247, 247, 1);
+
+  static const Color mwpButtonCardBackground = Color.fromRGBO(212, 212, 212, 1);
+
+  static const Color mwpTableRowGreenBackground = Color.fromRGBO(168, 225, 166, 1);
 }

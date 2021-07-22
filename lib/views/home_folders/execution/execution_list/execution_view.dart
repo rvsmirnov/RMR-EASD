@@ -22,7 +22,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class ExecutionView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На исполнение', false, true);
+    appBar.configureAppBar('На исполнение (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);
@@ -65,7 +65,7 @@ class _ExecutionViewBodyState extends State<ExecutionViewBody> {
       // 'content'
       // 'signerName'
       executionItem.cardUrgent = true;
-      executionItem.dokar = "VHD";
+      executionItem.dokar = "ДКИ";
       executionItem.rcvdDT = DateTime.now().add(new Duration(days: -1 * i));
       executionItem.ctrlDate = DateTime.now().add(new Duration(days: -2 * i));
       if (i < 10) {
@@ -84,6 +84,7 @@ class _ExecutionViewBodyState extends State<ExecutionViewBody> {
       executionItem.doktl = "000$i";
       executionItem.wfItem = "02$i";
       executionItem.logsys = 'logsys';
+      executionItem.punkt = '';
 
       _documentList.add(executionItem);
     }
@@ -185,6 +186,13 @@ class _ExecutionViewBodyState extends State<ExecutionViewBody> {
                       ),
                     ),
                     GridColumn(
+                      columnName: 'punkt',
+                      columnWidthMode: ColumnWidthMode.fill,
+                      label: GridHeaderItem(
+                        headerName: 'Пункт',
+                      ),
+                    ),
+                    GridColumn(
                       columnName: 'signerName',
                       columnWidthMode: ColumnWidthMode.fill,
                       label: GridHeaderItem(
@@ -274,6 +282,8 @@ class ExecutionDataSource extends DataGridSource {
               DataGridCell<String>(
                   columnName: 'content', value: dataGridRow.content),
               DataGridCell<String>(
+                  columnName: 'punkt', value: dataGridRow.punkt),
+              DataGridCell<String>(
                   columnName: 'signerName', value: dataGridRow.signerName),
               // Передаем данные, но не отображаем
               DataGridCell<String>(
@@ -296,6 +306,7 @@ class ExecutionDataSource extends DataGridSource {
 
     return DataGridRowAdapter(cells: <Widget>[
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -314,6 +325,7 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -324,6 +336,7 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -339,6 +352,7 @@ class ExecutionDataSource extends DataGridSource {
       //   ),
       // ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: DataGridService.getExecLight(
@@ -348,6 +362,7 @@ class ExecutionDataSource extends DataGridSource {
       ),
       // getExecLight
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -356,6 +371,7 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -364,6 +380,7 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -372,6 +389,7 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -380,10 +398,20 @@ class ExecutionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'execution',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
           textValue: row.getCells()[8].value.toString(),
+          color: DataGridService.getRowBackgroundColor(index),
+        ),
+      ),
+      ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
+        routeTypeCard: 'execution',
+        cellsList: row.getCells(),
+        childWidget: ContainerTextCell(
+          textValue: row.getCells()[9].value.toString(),
           color: DataGridService.getRowBackgroundColor(index),
         ),
       ),

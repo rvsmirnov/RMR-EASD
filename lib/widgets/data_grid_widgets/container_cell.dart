@@ -1,4 +1,4 @@
-import 'package:MWPX/views/home_folders/decision/decision_card/decision_card.dart';
+import 'package:MWPX/views/rk_card/rk_card.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -6,7 +6,13 @@ class ContainerCell extends StatelessWidget {
   final Widget? childWidget;
   final List<DataGridCell<dynamic>>? cellsList;
   final String routeTypeCard;
-  const ContainerCell({this.childWidget, this.cellsList, this.routeTypeCard = ''});
+  final String? dokar;
+  const ContainerCell({
+    this.childWidget,
+    this.cellsList,
+    this.routeTypeCard = '',
+    this.dokar = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,41 +23,49 @@ class ContainerCell extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DecisionCard(
+                builder: (context) => RKCard(
                   cellsList: cellsList,
+                  cardTitle: 'На решение',
+                  dokar: dokar,
                 ),
               ),
             );
           }
           if (routeTypeCard == 'agreement') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => AgreementCard(
-            //       cellsList: cellsList,
-            //     ),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RKCard(
+                  cellsList: cellsList,
+                  cardTitle: 'На согласование',
+                  dokar: dokar,
+                ),
+              ),
+            );
           }
           if (routeTypeCard == 'execution') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => ExecutionCard(
-            //       cellsList: cellsList,
-            //     ),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RKCard(
+                  cellsList: cellsList,
+                  cardTitle: 'На исполнение',
+                  dokar: dokar,
+                ),
+              ),
+            );
           }
           if (routeTypeCard == 'sign') {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => SignCard(
-            //       cellsList: cellsList,
-            //     ),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RKCard(
+                  cellsList: cellsList,
+                  cardTitle: 'На подписание',
+                  dokar: dokar,
+                ),
+              ),
+            );
           }
           if (routeTypeCard == 'control') {
             // Navigator.push(

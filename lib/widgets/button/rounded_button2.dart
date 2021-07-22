@@ -1,3 +1,4 @@
+import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:flutter/material.dart';
 
 /// Квадратная кнопка с округленными краями
@@ -11,7 +12,7 @@ class RoundedButton2 extends StatelessWidget {
   RoundedButton2({
     this.child,
     this.onPressed,
-    this.color = Colors.grey,
+    this.color = MWPColors.mwpButtonCardBackground,
     this.height = 40,
     this.width = 30,
   });

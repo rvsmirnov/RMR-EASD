@@ -23,7 +23,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class ForMeetingView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('К совещанию', false, true);
+    appBar.configureAppBar('К совещанию (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);

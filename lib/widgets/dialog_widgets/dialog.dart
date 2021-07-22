@@ -200,14 +200,20 @@ class Dialogs {
             //       ))),
             //   child:
             AlertDialog(
-          title: titleWidget,
+          scrollable: true,
+          title:
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child:
+              titleWidget,
+          // ),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12.0))),
           actions: [
             Center(
               child: MWPSquareButton(
                 'Закрыть',
-                // borderColor: Colors.black,
+                borderColor: Colors.black,
                 textColor: Colors.black,
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -215,23 +221,108 @@ class Dialogs {
               ),
             ),
           ],
-          content: Container(
+          content:
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child:
+              Container(
             decoration: BoxDecoration(
-              // border: Border(
-              //   top: BorderSide(
-              //     width: 1,
-              //     color: Colors.black,
-              //   ),
-              // ),
-            ),
+                // border: Border(
+                //   top: BorderSide(
+                //     width: 1,
+                //     color: Colors.black,
+                //   ),
+                // ),
+                ),
             // width: 800,
-            width: MediaQuery.of(context).size.width * 0.8,
+            // width: MediaQuery.of(context).size.width * 0.8,
+            // width: MediaQuery.of(context).size.width * leftSplitterWidth!,
             padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: content!,
           ),
+          // ),
           // ),
         );
       },
     );
   }
+
+  // static Future<dynamic> infoDialogRK2({
+  //   context,
+  //   Widget? titleWidget,
+  //   Widget? content,
+  // }) {
+  //   return showDialog(
+  //     useRootNavigator: false,
+  //     context: context,
+  //     builder: (BuildContext buildContext) {
+  //       return
+  //       // Theme(
+  //       //     data: Theme.of(context).copyWith(
+  //       //         // dialogBackgroundColor: Colors.white,
+  //       //         textTheme: TextTheme(
+  //       //             bodyText1: TextStyle(
+  //       //                 // color: Colors.black87,
+  //       //                 ))),
+  //       //     child:
+
+  //               Scaffold(
+  //                 backgroundColor: Colors.transparent,
+  //                 appBar: AppBar(
+  //                   title: Text(
+  //                      "Title",
+  //                       style: TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                 ),
+  //                 body: SafeArea(
+  //                   child: Center(
+  //                     child: Container(
+  //                       color: Colors.white,
+  //                       height: 50,
+  //                       width: 50,
+  //                     ),
+  //                   ),
+  //                 )
+  //               );
+
+  //           //     Container(
+  //           //       child: AlertDialog(
+  //           //   title: titleWidget,
+  //           //   shape: RoundedRectangleBorder(
+  //           //         borderRadius: BorderRadius.all(Radius.circular(12.0))),
+  //           //   actions: [
+  //           //       Center(
+  //           //         child: MWPSquareButton(
+  //           //           'Закрыть',
+  //           //           borderColor: Colors.black,
+  //           //           textColor: Colors.black,
+  //           //           onPressed: () {
+  //           //             Navigator.of(context).pop();
+  //           //           },
+  //           //         ),
+  //           //       ),
+  //           //   ],
+  //           //   content: Container(
+  //           //       decoration: BoxDecoration(
+  //           //           // border: Border(
+  //           //           //   top: BorderSide(
+  //           //           //     width: 1,
+  //           //           //     color: Colors.black,
+  //           //           //   ),
+  //           //           // ),
+  //           //           ),
+  //           //       // width: 800,
+  //           //       width: MediaQuery.of(context).size.width * 0.8,
+  //           //       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+  //           //       child: content!,
+  //           //   ),
+  //           //   // ),
+  //           // ),
+  //               // ));
+  //     },
+  //   );
+  // }
 }

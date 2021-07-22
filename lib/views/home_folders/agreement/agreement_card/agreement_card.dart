@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:MWPX/blocs/home_folders/decision/decision_card/decision_card_bloc.dart';
+import 'package:MWPX/blocs/home_folders/agreement/agreement_card/agreement_card_bloc.dart';
 import 'package:MWPX/data_structure/card/body/incoming/IncomingCard.dart';
-import 'package:MWPX/data_structure/card/list/DecisionListItem.dart';
 import 'package:MWPX/services/icons_service.dart';
 import 'package:MWPX/services/report_service.dart';
+import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button/circlebutton.dart';
 import 'package:MWPX/widgets/button/rounded_button2.dart';
@@ -14,6 +14,7 @@ import 'package:MWPX/widgets/MWPGroupBox.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:painter/painter.dart';
 import 'package:provider/provider.dart';
 import 'package:split_view/split_view.dart';
@@ -24,28 +25,28 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class DecisionCard extends StatelessWidget {
+class AgreementCard extends StatelessWidget {
   final List<DataGridCell<dynamic>>? cellsList;
 
-  const DecisionCard({
+  const AgreementCard({
     this.cellsList,
   });
 
   @override
   Widget build(BuildContext context) {
-    print('---0--- cellsList in DecisionCard $cellsList');
+    print('---0--- cellsList in AgreementCard $cellsList');
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На решение', false, true);
+    appBar.configureAppBar('На согласование', false, true);
     ReportService reportService = Provider.of<ReportService>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: BlocProvider(
-        create: (BuildContext context) => DecisionCardBloc(
+        create: (BuildContext context) => AgreementCardBloc(
           reportService: reportService,
         )..add(OpenScreen()),
-        child: DecisionCardBody(
+        child: AgreementCardBody(
           cellsList: cellsList,
         ),
       ),
@@ -53,18 +54,18 @@ class DecisionCard extends StatelessWidget {
   }
 }
 
-class DecisionCardBody extends StatefulWidget {
+class AgreementCardBody extends StatefulWidget {
   final List<DataGridCell<dynamic>>? cellsList;
 
-  const DecisionCardBody({
+  const AgreementCardBody({
     this.cellsList,
   });
 
   @override
-  State<DecisionCardBody> createState() => _DecisionCardBodyState();
+  State<AgreementCardBody> createState() => _AgreementCardBodyState();
 }
 
-class _DecisionCardBodyState extends State<DecisionCardBody> {
+class _AgreementCardBodyState extends State<AgreementCardBody> {
   IncomingCard _selectedCard = new IncomingCard();
   double rightSplitterWidth = 0.5;
   double leftSplitterWidth = 0.5;
@@ -74,9 +75,9 @@ class _DecisionCardBodyState extends State<DecisionCardBody> {
     var buttonBar = new MWPButtonBar();
     buttonBar.configureButtonBar(Constants.viewNameBTrips);
 
-    return BlocConsumer<DecisionCardBloc, DecisionCardState>(
+    return BlocConsumer<AgreementCardBloc, AgreementCardState>(
       listener: (context, state) {
-        if (state is DecisionCardFailure) {
+        if (state is AgreementCardFailure) {
           Dialogs.errorDialog(
             context: context,
             content: Text('${state.error}'),
@@ -164,10 +165,67 @@ class _LeftCardViewState extends State<LeftCardView> {
 
   @override
   Widget build(BuildContext context) {
+    // print('screen width ${MediaQuery.of(context).size.width}');
     List<String> fileNameList = [];
 
     for (int i = 1; i < 10; i++) {
       fileNameList.add('$i. Название документа из файлов');
+    }
+
+    List<TableRow> tableRowList = <TableRow>[];
+
+    DateFormat dateFormat = DateFormat("dd.MM.yyyy");
+    for (int i = 1; i < 100; i++) {
+      tableRowList.add(TableRow(
+        decoration: i == 1
+            ? const BoxDecoration(color: MWPColors.mwpTableRowGreenBackground)
+            : const BoxDecoration(color: Colors.white),
+        children: <Widget>[
+          Container(
+            child: Text(
+              'Кузьмина Ольга Юрьевна $i ЦН',
+              style: TextStyle(),
+              overflow: TextOverflow.visible,
+              maxLines: 2,
+            ),
+          ),
+          Row(
+            children: [
+              Container(
+                child: i % 2 != 0
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.green,
+                        size: 30,
+                      )
+                    : Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+              ),
+              Container(
+                child: Text(
+                  dateFormat
+                      .format(DateTime.now().add(new Duration(days: 1 * i)))
+                      .toString(),
+                  style: TextStyle(),
+                  overflow: TextOverflow.visible,
+                  maxLines: 2,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            child: Text(
+              'Текст замечания $i',
+              style: TextStyle(),
+              overflow: TextOverflow.visible,
+              maxLines: 2,
+            ),
+          ),
+        ],
+      ));
     }
 
     Widget leftHeaderContent = Row(
@@ -200,10 +258,10 @@ class _LeftCardViewState extends State<LeftCardView> {
                       children: [
                         IconsService.getIconRK(widget.cellsList![1].value),
                         //этого свойства нет в нашей таблице и поэтому сюда не передаем
-                        // decisionItem.documentType = '';
-                        // decisionItem.documentTypeText = '';
+                        // agreementItem.documentType = '';
+                        // agreementItem.documentTypeText = '';
                         Text(
-                          'Тип документа ${widget.cellsList![3].value}',
+                          '${widget.cellsList![2].value}',
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                       ],
@@ -223,14 +281,14 @@ class _LeftCardViewState extends State<LeftCardView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Автор: ${widget.cellsList![4].value}',
+                              'Исполнитель: Иванов Аркадий Петрович ${widget.cellsList![4].value}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 14,
                               ),
                             ),
                             Text(
-                              'Получено: ${widget.cellsList![2].value}',
+                              'Получено: ${widget.cellsList![1].value}',
                               style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 14,
@@ -243,12 +301,12 @@ class _LeftCardViewState extends State<LeftCardView> {
                   ],
                 ),
                 content: Text(
-                    '${widget.cellsList![5].value.toString()} doknr: ${widget.cellsList![6].value.toString()} dokvr: ${widget.cellsList![7].value.toString()} doktl: ${widget.cellsList![8].value.toString()} wfItem: ${widget.cellsList![9].value.toString()}'),
+                    '${widget.cellsList![5].value.toString()} doknr: ${widget.cellsList![6].value.toString()} dokvr: ${widget.cellsList![7].value.toString()} doktl: ${widget.cellsList![8].value.toString()} wfItem: ${widget.cellsList![8].value.toString()}'),
               );
             },
             child: Center(
               child: Container(
-                height: 20,
+                // height: 20,
                 child: Text(
                   'РК',
                   overflow: TextOverflow.visible,
@@ -262,6 +320,104 @@ class _LeftCardViewState extends State<LeftCardView> {
             ),
           ),
         ),
+        // В вертикальной ориентации это не работает
+        // Поэтому сделать условие, что если вертикальная ориентация, то
+        widget.leftSplitterWidth! < 0.45
+            ? SizedBox()
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  child: RoundedButton2(
+                    onPressed: () {
+                      Dialogs.infoDialogRK(
+                        context: context,
+                        titleWidget: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Лист согласования',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        content: SingleChildScrollView(
+                          child: Table(
+                            border: TableBorder.symmetric(
+                              inside: BorderSide(width: 1),
+                              outside: BorderSide(width: 1),
+                            ),
+                            columnWidths: const <int, TableColumnWidth>{
+                              // 0: IntrinsicColumnWidth(),
+                              // 1: FlexColumnWidth(),
+                              // 2: FixedColumnWidth(64),
+                            },
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.middle,
+                            children: <TableRow>[
+                              TableRow(
+                                decoration: const BoxDecoration(
+                                  color: Color.fromRGBO(75, 75, 75, 1),
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    height: 30,
+                                    child: Text(
+                                      'Согласующий',
+                                      style: TextStyle(color: Colors.white),
+                                      overflow: TextOverflow.visible,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Согласование',
+                                      style: TextStyle(color: Colors.white),
+                                      overflow: TextOverflow.visible,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Текст замечания',
+                                      style: TextStyle(color: Colors.white),
+                                      overflow: TextOverflow.visible,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              ...tableRowList
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    // width: 360*widget.leftSplitterWidth!,
+                    width: 160,
+                    height: 40,
+                    child: Center(
+                      child: Container(
+                        // height: 20,
+                        child: Text(
+                          'Лист согласования',
+                          overflow: TextOverflow.visible,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
       ],
     );
 
@@ -318,13 +474,19 @@ class _LeftCardViewState extends State<LeftCardView> {
                           ),
                         ),
                       ),
-                      widget.leftSplitterWidth! < 0.3
+                      MediaQuery.of(context).size.width < 900
                           ? Expanded(
                               child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: leftHeaderContent),
                             )
-                          : leftHeaderContent
+                          : widget.leftSplitterWidth! < 0.3
+                              ? Expanded(
+                                  child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: leftHeaderContent),
+                                )
+                              : leftHeaderContent
                     ],
                   ),
                 ),
@@ -667,10 +829,10 @@ class _RightCardViewState extends State<RightCardView> {
   Widget build(BuildContext context) {
     double minWeightLimit = getWeightLimit(MediaQuery.of(context).size.height);
 
-    // Контент Проект резолюции
-    Widget resolutionProjectContent = Container(
+    // Контент Доп. информация
+    Widget additionalInformationContent = Container(
       child: Text(
-        'Список коментариев: iterationTable',
+        'this.widget.card.addInfText',
         overflow: TextOverflow.visible,
         maxLines: 1,
       ),
@@ -726,9 +888,9 @@ class _RightCardViewState extends State<RightCardView> {
         ),
         children: [
           MWPGroupBox(
-            'Проект резолюции',
-            resolutionProjectContent,
-            contentWidgetForDialog: resolutionProjectContent,
+            'Доп.информация',
+            additionalInformationContent,
+            contentWidgetForDialog: additionalInformationContent,
             titleDecorationOn: false,
             infoDialogIconOn: false,
             buttonsList: [
@@ -738,10 +900,7 @@ class _RightCardViewState extends State<RightCardView> {
                   color: Colors.black,
                   size: 34,
                 ),
-                onPressed: () {
-                  // print('-- keyboard_arrow_down');
-                  // setState(() {});
-                },
+                onPressed: () {},
                 borderWidth: 2,
                 borderColor: Colors.black,
               )

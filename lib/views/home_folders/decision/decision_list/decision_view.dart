@@ -24,7 +24,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class DecisionView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На решение', false, true);
+    appBar.configureAppBar('На решение (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);
@@ -294,6 +294,7 @@ class DecisionDataSource extends DataGridSource {
 
     return DataGridRowAdapter(cells: <Widget>[
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -312,6 +313,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -321,6 +323,7 @@ class DecisionDataSource extends DataGridSource {
             child: IconsService.getIconRK(row.getCells()[1].value)),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -329,6 +332,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -337,6 +341,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -345,6 +350,7 @@ class DecisionDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[1].value.toString(),
         routeTypeCard: 'decision',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(

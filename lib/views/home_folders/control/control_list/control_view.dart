@@ -22,7 +22,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 class ControlView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На контроль', false, true);
+    appBar.configureAppBar('На контроль (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);

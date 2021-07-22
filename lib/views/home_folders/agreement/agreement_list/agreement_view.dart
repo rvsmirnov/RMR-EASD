@@ -1,10 +1,9 @@
-import 'package:MWPX/blocs/home_folders/agreement/decision_list/agreement_list_bloc.dart';
+import 'package:MWPX/blocs/home_folders/agreement/agreement_list/agreement_list_bloc.dart';
 // import 'package:MWPX/blocs/home_folders/decision/decision_list/decision_list_bloc.dart';
 import 'package:MWPX/data_structure/card/list/ApproveListItem.dart';
 import 'package:MWPX/services/data_grid_service.dart';
 import 'package:MWPX/services/icons_service.dart';
 import 'package:MWPX/services/shared_prefers_service.dart';
-import 'package:MWPX/views/home_folders/decision/decision_card/decision_card.dart';
 import 'package:MWPX/widgets/app_bar/appbar.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
@@ -21,10 +20,24 @@ import 'package:syncfusion_flutter_core/theme.dart';
 ///Список документов из папки На согласование
 ///
 
-class AgreementView extends StatelessWidget {
+class AgreementView extends StatefulWidget {
+  @override
+  State<AgreementView> createState() => _AgreementViewState();
+}
+
+class _AgreementViewState extends State<AgreementView> {
+  int countListItem = 0;
+
+  Function? setCountListItem(int count) {
+    setState(() {
+      countListItem = count;
+    });
+  }
+
   Widget build(BuildContext context) {
     var appBar = new MWPMainAppBar();
-    appBar.configureAppBar('На согласование', false, true);
+
+    appBar.configureAppBar('На согласование (100)', false, true);
     SharedPrefsService sharedPrefsService =
         Provider.of<SharedPrefsService>(context);
     DataGridService dataGridService = Provider.of<DataGridService>(context);
@@ -36,18 +49,21 @@ class AgreementView extends StatelessWidget {
           sharedPrefsService: sharedPrefsService,
           dataGridService: dataGridService,
         )..add(OpenScreen()),
-        child: AgreementViewBody(),
+        child: AgreementViewBody(setCountListItem: setCountListItem),
       ),
     );
   }
 }
 
 class AgreementViewBody extends StatefulWidget {
+  Function? setCountListItem;
+  AgreementViewBody({this.setCountListItem});
   @override
   _AgreementViewBodyState createState() => _AgreementViewBodyState();
 }
 
 class _AgreementViewBodyState extends State<AgreementViewBody> {
+
   @override
   Widget build(BuildContext context) {
     var buttonBar = new MWPButtonBar();
@@ -58,7 +74,7 @@ class _AgreementViewBodyState extends State<AgreementViewBody> {
     for (int i = 0; i < 100; i++) {
       ApproveListItem approveItem = new ApproveListItem();
       // approveItem.cardUrgent = true;
-      approveItem.dokar = "VHD";
+      approveItem.dokar = "ORD";
       approveItem.doknr = i.toString();
       approveItem.content = "Документ $i";
       //этого свойства нет, подставить в таблицу вместо нум
@@ -75,6 +91,7 @@ class _AgreementViewBodyState extends State<AgreementViewBody> {
 
       _documentList.add(approveItem);
     }
+
 
     AgreementDataSource _decisionListSource =
         new AgreementDataSource(_documentList);
@@ -233,6 +250,7 @@ class AgreementDataSource extends DataGridSource {
 
     return DataGridRowAdapter(cells: <Widget>[
       ContainerCell(
+        dokar: row.getCells()[0].value.toString(),
         routeTypeCard: 'agreement',
         cellsList: row.getCells(),
         childWidget: Container(
@@ -242,6 +260,7 @@ class AgreementDataSource extends DataGridSource {
             child: IconsService.getIconRK(row.getCells()[0].value)),
       ),
       ContainerCell(
+        dokar: row.getCells()[0].value.toString(),
         routeTypeCard: 'agreement',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -250,6 +269,7 @@ class AgreementDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[0].value.toString(),
         routeTypeCard: 'agreement',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
@@ -258,6 +278,7 @@ class AgreementDataSource extends DataGridSource {
         ),
       ),
       ContainerCell(
+        dokar: row.getCells()[0].value.toString(),
         routeTypeCard: 'agreement',
         cellsList: row.getCells(),
         childWidget: ContainerTextCell(
