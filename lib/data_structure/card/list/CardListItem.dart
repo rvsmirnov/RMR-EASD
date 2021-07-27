@@ -70,4 +70,25 @@ class CardListItem extends CardListKey {
     fileCount = 0;
     content = "";
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    rcvdDT = pMap['rcvdDT'];
+    cardProcessed = pMap['cardProcessed'];
+    cardOpened = pMap['cardOpened'];
+    super.fromMap(pMap);
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'rcvdDT': rcvdDT,
+      'cardProcessed': cardProcessed,
+      'cardOpened': cardOpened
+    };
+
+    map.addAll(super.toMap());
+
+    return map;
+  }
 }

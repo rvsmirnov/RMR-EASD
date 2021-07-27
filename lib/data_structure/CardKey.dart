@@ -1,5 +1,7 @@
+import 'package:MWPX/data_structure/TableRow.dart';
+
 /// Класс для хранения ключа РК. От него наследуются структуры хранения данных
-class CardKey {
+class CardKey extends TableRow {
   /// Логическая система
   String logsys = "";
 
@@ -27,6 +29,24 @@ class CardKey {
     this.doktl = "000";
   }
 
-  //CardKey(this.logsys, this.dokar, this.doknr, this.dokvr, this.doktl);
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    logsys = pMap['logsys'];
+    dokar = pMap['dokar'];
+    doknr = pMap['doknr'];
+    dokvr = pMap['dokvr'];
+    doktl = pMap['doktl'];
+  }
 
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+    };
+    return map;
+  }
 }

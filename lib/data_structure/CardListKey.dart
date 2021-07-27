@@ -12,4 +12,20 @@ class CardListKey extends CardKey {
     folderCode = "";
     wfItem = "";
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    folderCode = pMap['folderCode'];
+    wfItem = pMap['wfItem'];
+    super.fromMap(pMap);
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {'folderCode': folderCode, 'wfItem': wfItem};
+
+    map.addAll(super.toMap());
+
+    return map;
+  }
 }

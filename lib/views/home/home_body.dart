@@ -51,6 +51,7 @@ class MWPFolderTileView extends StatelessWidget {
                           e['folderCode'],
                           e['folderName'],
                           e['folderCount'],
+                          e['folderType'],
                           e['svgCode'],
                         ),
                       ),
@@ -77,15 +78,17 @@ class MWPFolderTileView extends StatelessWidget {
 class MWPFolderTile extends StatelessWidget {
   String _folderName = "";
   String? _svgCode;
-  int? _folderCount = 0;
-  int _folderCode = 0;
+  String _folderCount = "";
+  String _folderCode = "";
+  String _folderType = "";
 
-  MWPFolderTile(
-      int folderCode, String folderName, int? folderCount, String svgCode) {
+  MWPFolderTile(String folderCode, String folderName, String folderCount,
+      String folderType, String svgCode) {
     _folderCode = folderCode;
     _folderName = folderName;
     _svgCode = svgCode;
     _folderCount = folderCount;
+    _folderType = folderType;
   }
 
   Widget build(BuildContext context) {
@@ -95,19 +98,22 @@ class MWPFolderTile extends StatelessWidget {
       height: 190,
       child: OutlineButton(
         onPressed: () {
-          if (this._folderCode == 00001) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => BTripView()));
+          if (this._folderType == "WFL") {
+            if (this._folderCode == "00001") {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BTripView()));
+            }
+            if (this._folderCode == "00002") {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => VacationView()));
+            }
+            if (this._folderCode == "00003") {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DecisionView()));
+            }
           }
-          if (this._folderCode == 00002) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => VacationView()));
-          }
-          if (this._folderCode == 00003) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DecisionView()));
-          }
-          if (this._folderCode == 00004) {
+
+          if (this._folderCode == "00004") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ReportScreen()));
           }
@@ -203,7 +209,7 @@ class MWPFolderTile extends StatelessWidget {
                           //color: Colors.lightGreen,
                           )),
                   Text(
-                    _folderCount == null ? '' : '$_folderCount',
+                    _folderCount,
                     style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
                 ],

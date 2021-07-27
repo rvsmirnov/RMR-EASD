@@ -49,7 +49,7 @@ class _MWPGroupsBoxState extends State<MWPGroupsBox>
                     intTab = tabInt;
                   });
                 },
-                padding: EdgeInsets.all(0),
+                //padding: EdgeInsets.all(0),
                 labelPadding: EdgeInsets.all(0),
                 indicatorPadding: EdgeInsets.all(0),
                 indicator: UnderlineTabIndicator(

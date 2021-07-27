@@ -1,5 +1,7 @@
+import 'package:MWPX/data_structure/TableRow.dart';
+
 /// Класс для загрузки и хранения информации о папке с документами
-class FolderItem {
+class FolderItem extends TableRow {
   /// Код папки, её идентификатор
   late String folderCode;
 
@@ -7,7 +9,7 @@ class FolderItem {
   late String folderName;
 
   /// Порядковый номер папки, по нему надо сортровать при выводе на экран
-  late int recnr;
+  late int recNr;
 
   /// Тип папки.
   /// WFL - Папка с документами, пришедшими по задачам.
@@ -24,7 +26,10 @@ class FolderItem {
 
   /// Текстовое поле для вывода количества всех документов в папке
   String get allCountText {
-    if (folderCode == "00006" ||
+    if (folderCode == "00004" ||
+        folderCode == "00005" ||
+        folderCode == "00006" ||
+        folderCode == "00014" ||
         folderCode == "00011") //Группа отчетов и создание поручений
     {
       return "";
@@ -37,10 +42,32 @@ class FolderItem {
   FolderItem() {
     folderCode = "";
     folderName = "";
-    recnr = 0;
+    recNr = 0;
     folderType = "";
     parentCode = "";
     allCount = 0;
+    tableName = "Folder";
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'folderCode': folderCode,
+      'folderName': folderName,
+      'recNr': recNr,
+      'folderType': folderType,
+      'parentCode': parentCode,
+    };
+    return map;
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    folderCode = pMap['folderCode'];
+    folderName = pMap['folderName'];
+    recNr = pMap['recNr'];
+    folderType = pMap['folderType'];
+    parentCode = pMap['parentCode'];
   }
 
   /// Отображение данных класса в текстовом виде

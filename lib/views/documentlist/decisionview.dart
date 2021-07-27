@@ -4,6 +4,7 @@ import 'package:MWPX/widgets/button_bar/buttonbar.dart';
 import 'package:MWPX/styles/mwp_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/constants.dart' as Constants;
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 ///Список документов из папки На решение
@@ -39,68 +40,71 @@ class DecisionView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: SfDataGrid(
-                allowSorting: true,
-                selectionMode: SelectionMode.single,
-                source: _decisionListSource,
-                gridLinesVisibility: GridLinesVisibility.none,
-                columns: [
-                  GridTextColumn(
-                      columnName: 'doknr',
-                      columnWidthMode: ColumnWidthMode.fill,
-                      label: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
-                          child: Text(
-                            'DOKNR',
-                            overflow: TextOverflow.ellipsis,
-                          ))),
-                  GridTextColumn(
-                      columnName: 'rcvdDT',
-                      columnWidthMode: ColumnWidthMode.fill,
-                      label: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
-                          child: Text(
-                            'Получено',
-                            overflow: TextOverflow.ellipsis,
-                          ))),
-                  GridTextColumn(
-                      columnName: 'regNUM',
-                      columnWidthMode: ColumnWidthMode.fill,
-                      label: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
-                          child: Text(
-                            'Номер',
-                            overflow: TextOverflow.ellipsis,
-                          ))),
-                  GridTextColumn(
-                      columnName: 'mainAuthor',
-                      columnWidthMode: ColumnWidthMode.fill,
-                      label: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
-                          child: Text(
-                            'Автор',
-                            overflow: TextOverflow.ellipsis,
-                          ))),
-                  GridTextColumn(
-                      columnName: 'content',
-                      columnWidthMode: ColumnWidthMode.fill,
-                      label: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          alignment: Alignment.centerLeft,
-                          color: mwpColorLight,
-                          child: Text(
-                            'Содержание',
-                            overflow: TextOverflow.ellipsis,
-                          ))),
-                ],
+              child: SfDataGridTheme(
+                data: SfDataGridThemeData(rowHoverColor: Colors.red),
+                child: SfDataGrid(
+                  allowSorting: true,
+                  selectionMode: SelectionMode.single,
+                  source: _decisionListSource,
+                  gridLinesVisibility: GridLinesVisibility.none,
+                  columns: [
+                    GridColumn(
+                        columnName: 'doknr',
+                        columnWidthMode: ColumnWidthMode.fill,
+                        label: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            alignment: Alignment.centerLeft,
+                            color: mwpColorLight,
+                            child: Text(
+                              'DOKNR',
+                              overflow: TextOverflow.ellipsis,
+                            ))),
+                    GridColumn(
+                        columnName: 'rcvdDT',
+                        columnWidthMode: ColumnWidthMode.fill,
+                        label: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            alignment: Alignment.centerLeft,
+                            color: mwpColorLight,
+                            child: Text(
+                              'Получено',
+                              overflow: TextOverflow.ellipsis,
+                            ))),
+                    GridColumn(
+                        columnName: 'regNUM',
+                        columnWidthMode: ColumnWidthMode.fill,
+                        label: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            alignment: Alignment.centerLeft,
+                            color: mwpColorLight,
+                            child: Text(
+                              'Номер',
+                              overflow: TextOverflow.ellipsis,
+                            ))),
+                    GridColumn(
+                        columnName: 'mainAuthor',
+                        columnWidthMode: ColumnWidthMode.fill,
+                        label: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            alignment: Alignment.centerLeft,
+                            color: mwpColorLight,
+                            child: Text(
+                              'Автор',
+                              overflow: TextOverflow.ellipsis,
+                            ))),
+                    GridColumn(
+                        columnName: 'content',
+                        columnWidthMode: ColumnWidthMode.fill,
+                        label: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            alignment: Alignment.centerLeft,
+                            color: mwpColorLight,
+                            child: Text(
+                              'Содержание',
+                              overflow: TextOverflow.ellipsis,
+                            ))),
+                  ],
+                ),
               ),
             ),
             buttonBar
@@ -136,15 +140,28 @@ class DecisionDataSource extends DataGridSource {
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
+    var cells = row.getCells();
+
+    Color rowColor = Colors.white;
+
+    int index = dataGridRows.indexOf(row) + 1;
+
+    //if (int.parse(cells[0].value.toString()).remainder(2) == 0)
+    if (index % 2 == 0)
+      rowColor = mwpTableRowBackroundDark;
+    else
+      rowColor = mwpTableRowBackroundLight;
+
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
       return Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          color: (dataGridCell.columnName == 'doknr' &&
-                  int.parse(dataGridCell.value).remainder(2) == 0
-              ? mwpTableRowBackroundDark
-              : mwpTableRowBackroundLight),
+          color: rowColor,
+          // color: (dataGridCell.columnName == 'doknr' &&
+          //         int.parse(dataGridCell.value).remainder(2) == 0
+          //     ? mwpTableRowBackroundDark
+          //     : mwpTableRowBackroundLight),
           child: Text(
             dataGridCell.value.toString(),
             overflow: TextOverflow.ellipsis,
