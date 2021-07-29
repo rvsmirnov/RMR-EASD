@@ -25,10 +25,16 @@ class MWPButtonBar extends StatelessWidget {
       button_list.add(MWPSquareButton('Вернуть с\nзамечаниями'));
     }
 
-    if (viewName == Constants.viewNameDecisionList) {
+    if (viewName == Constants.viewNameDecision) {
       button_list.add(MWPCircleButton(
         buttonChild: Icon(Icons.sync, color: Colors.white),
       ));
+    }
+
+    if (viewName == Constants.viewNameInputScreen) {
+      button_list.add(MWPSquareButton('Разрешить'));
+      button_list.add(MWPSquareButton('Отклонить'));
+      button_list.add(MWPSquareButton('Вернуть с\nзамечаниями'));
     }
   }
 

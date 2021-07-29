@@ -23,18 +23,27 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   intl: ^0.17.0
-  #syncfusion_flutter_datagrid: ^19.1.65-beta
   syncfusion_flutter_datagrid: ^19.2.44-beta.1
-  syncfusion_flutter_core: ^19.2.44+1
   flutter_bloc: ^7.0.1
   local_auth: ^1.1.6
   provider: ^5.0.0
   equatable: ^2.0.0
   flutter_svg: ^0.22.0
-  split_view: ^3.1.0
-  sqflite: ^2.0.0+3
+  split_view: ^3.0.1
+  flutter_colorpicker: ^0.5.0
+  painter: ^2.0.0
+  pdf_image_renderer: ^0.6.1
+  pdf: ^3.4.2
   path_provider: ^2.0.2
-  
+  open_file: ^3.2.1
+  printing: ^5.4.2
+  # native_pdf_renderer: ^3.1.0
+  font_awesome_flutter: ^9.1.0
+  shared_preferences: ^2.0.6
+  # flutter_sound_lite: ^8.2.0
+  # permission_handler: ^6.0.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,6 +54,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+   - assets/images/
+   - assets/files/
+   - assets/images/dokar_icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -16,7 +16,7 @@ class ControlListItem extends CardListItem {
       iDays = tsDelta.inDays;
       sDelta = iDays.toString();
 
-      if (sDelta.substring(sDelta.length - 1, 1) == "1") {
+      if (sDelta.endsWith('1')) {
         sWord = "сутки";
       } else {
         sWord = "суток";

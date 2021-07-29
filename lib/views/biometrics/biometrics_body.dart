@@ -5,7 +5,7 @@ import 'package:MWPX/widgets/button/elevated_button.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:MWPX/styles/mwp_colors.dart' as mwpColors;
+import 'package:MWPX/styles/mwp_colors.dart';
 
 class BiometricsBody extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _BiometricsBodyState extends State<BiometricsBody> {
           BlocProvider.of<BiometricBloc>(context).add(
             OpenScreen(),
           );
-          Dialogs.infoDialog(
+          Dialogs.errorDialog(
             context: context,
             content: Text('${state.error}'),
           );
@@ -55,7 +55,7 @@ class _BiometricsBodyState extends State<BiometricsBody> {
             child: MWPElevatedButton(
               style: ElevatedButton.styleFrom(
                 textStyle: MwpTextStyles.buttonTextStyle,
-                primary: mwpColors.mwpAccentColor,
+                primary: MWPColors.mwpAccentColor,
               ),
               onPressed: () {
                 BlocProvider.of<BiometricBloc>(context).add(

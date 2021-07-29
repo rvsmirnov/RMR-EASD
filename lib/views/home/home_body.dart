@@ -1,7 +1,26 @@
 import 'package:MWPX/blocs/home/home_bloc.dart';
-import 'package:MWPX/views/documentlist/decisionview.dart';
+import 'package:MWPX/views/home_folders/acquaintance/acquaintance_list/acquaintance_view.dart';
+import 'package:MWPX/views/home_folders/agreement/agreement_list/agreement_view.dart';
+import 'package:MWPX/views/home_folders/audio/audio_play.dart';
+import 'package:MWPX/views/home_folders/audio/audio_record.dart';
+// import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:MWPX/views/home_folders/btripview.dart';
+import 'package:MWPX/views/home_folders/control/control_list/control_view.dart';
+import 'package:MWPX/views/home_folders/decision/decision_list/decision_view.dart';
+import 'package:MWPX/views/home_folders/execution/execution_list/execution_view.dart';
+import 'package:MWPX/views/home_folders/for_meeting/for_meeting_list/for_meeting_list.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/draw_screen.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/draw_screen2.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen3.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen4.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen5.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen5_0.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen6.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen7.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen8.dart';
+import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen9.dart';
 import 'package:MWPX/views/home_folders/report/report_screen.dart';
+import 'package:MWPX/views/home_folders/sign/sign_list/sign_view.dart';
 import 'package:MWPX/views/home_folders/vacationview.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +38,7 @@ class MWPFolderTileView extends StatelessWidget {
 
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is HomeFailure) {
-        Dialogs.infoDialog(
+        Dialogs.errorDialog(
           context: context,
           content: Text('${state.error}'),
         );
@@ -116,6 +135,63 @@ class MWPFolderTile extends StatelessWidget {
           if (this._folderCode == "00004") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ReportScreen()));
+          }
+          if (this._folderCode == 00005) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AgreementView()));
+          }
+          if (this._folderCode == 00006) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignView()));
+          }
+          if (this._folderCode == 00007) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ExecutionView()));
+          }
+          // if (this._folderCode == 00007) {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => MyHomePage5(
+          //         title: 'Пример графических работ 2',
+          //       ),
+          //     ),
+          //   );
+          // }
+          if (this._folderCode == 00008) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ControlView(),
+              ),
+            );
+          }
+          //
+          if (this._folderCode == 00009) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage9(
+                  title: 'Screen 9',
+                ),
+              ),
+            );
+          }
+          if (this._folderCode == 00010) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AcquaintanceView(),
+              ),
+            );
+          }
+          if (this._folderCode == 00011) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ForMeetingView(),
+              ),
+            );
           }
         },
         //color: Colors.lightGreen,

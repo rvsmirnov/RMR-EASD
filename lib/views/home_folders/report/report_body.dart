@@ -1,5 +1,5 @@
 import 'package:MWPX/blocs/home_folders/report/report_bloc.dart';
-import 'package:MWPX/views/documentlist/decisionview.dart';
+// import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:MWPX/views/home_folders/btripview.dart';
 import 'package:MWPX/views/home_folders/vacationview.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
@@ -18,7 +18,7 @@ class ReportBody extends StatelessWidget {
 
     return BlocConsumer<ReportBloc, ReportState>(listener: (context, state) {
       if (state is ReportFailure) {
-        Dialogs.infoDialog(
+        Dialogs.errorDialog(
           context: context,
           content: Text('${state.error}'),
         );
@@ -45,10 +45,10 @@ class ReportBody extends StatelessWidget {
                     children: <Widget>[
                       ...state.foldersReportDataList!.map(
                         (e) => MWPFolderTile(
-                          e['folderCode'],
-                          e['folderName'],
-                          e['folderCount'],
-                          e['svgCode'],
+                          folderCode: e['folderCode'],
+                          folderName: e['folderName'],
+                          folderCount: e['folderCount'],
+                          svgCode: e['svgCode'],
                         ),
                       ),
                     ],
@@ -69,18 +69,17 @@ class ReportBody extends StatelessWidget {
 
 // Плитка папки на главном экране
 class MWPFolderTile extends StatelessWidget {
-  String _folderName = "";
-  String? _svgCode;
-  int? _folderCount = 0;
-  int _folderCode = 0;
+  final String? folderName;
+  final String? svgCode;
+  final int? folderCount;
+  final int folderCode;
 
-  MWPFolderTile(
-      int folderCode, String folderName, int? folderCount, String svgCode) {
-    _folderCode = folderCode;
-    _folderName = folderName;
-    _svgCode = svgCode;
-    _folderCount = folderCount;
-  }
+  MWPFolderTile({
+    this.folderCode = 0,
+    this.folderName = '',
+    this.folderCount = 0,
+    this.svgCode = '',
+  });
 
   Widget build(BuildContext context) {
     return Container(
@@ -113,7 +112,7 @@ class MWPFolderTile extends StatelessWidget {
                   children: <Widget>[
                     Center(
                       child: SvgPicture.string(
-                        _svgCode!,
+                        svgCode!,
                         height: 135,
                         width: 135,
                         fit: BoxFit.fill,
@@ -142,7 +141,7 @@ class MWPFolderTile extends StatelessWidget {
                     height: 25,
                     child: FittedBox(
                       child: Text(
-                        _folderName,
+                        folderName!,
                         style: TextStyle(color: Colors.white, fontSize: 22),
                       ),
                       alignment: Alignment.centerLeft,
@@ -153,7 +152,7 @@ class MWPFolderTile extends StatelessWidget {
                     child: Container(),
                   ),
                   Text(
-                    _folderCount == null ? '' : '$_folderCount',
+                    folderCount == null ? '' : '$folderCount',
                     style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
                 ],

@@ -1,8 +1,10 @@
 import 'package:MWPX/data_processing/DB.dart';
 import 'package:MWPX/data_processing/folder/FolderOperator.dart';
 import 'package:MWPX/services/biometric_service.dart';
+import 'package:MWPX/services/data_grid_service.dart';
 import 'package:MWPX/services/home_service.dart';
 import 'package:MWPX/services/report_service.dart';
+import 'package:MWPX/services/shared_prefers_service.dart';
 import 'package:MWPX/views/home/home_body.dart';
 import 'package:MWPX/views/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +31,12 @@ void main() async {
         Provider<ReportService>(
           create: (_) => ReportService(),
         ),
-        // ReportService
+        Provider<SharedPrefsService>(
+          create: (_) => SharedPrefsService(),
+        ),
+        Provider<DataGridService>(
+          create: (_) => DataGridService(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
