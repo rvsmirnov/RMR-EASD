@@ -1,8 +1,6 @@
 import 'package:MWPX/blocs/home/home_bloc.dart';
 import 'package:MWPX/views/home_folders/acquaintance/acquaintance_list/acquaintance_view.dart';
 import 'package:MWPX/views/home_folders/agreement/agreement_list/agreement_view.dart';
-import 'package:MWPX/views/home_folders/audio/audio_play.dart';
-import 'package:MWPX/views/home_folders/audio/audio_record.dart';
 // import 'package:MWPX/views/documentlist/decisionview.dart';
 import 'package:MWPX/views/home_folders/btripview.dart';
 import 'package:MWPX/views/home_folders/control/control_list/control_view.dart';
@@ -162,14 +160,13 @@ class MWPFolderTile extends StatelessWidget {
           }
           //
           if (this._folderCode == 00009) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MyHomePage9(
-                  title: 'Screen 9',
-                ),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => SimpleRecorder(
+            //     ),
+            //   ),
+            // );
           }
           if (this._folderCode == 00010) {
             Navigator.push(

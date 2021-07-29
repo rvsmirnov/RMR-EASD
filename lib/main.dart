@@ -1,5 +1,7 @@
+import 'package:MWPX/services/audio_service.dart';
 import 'package:MWPX/services/biometric_service.dart';
 import 'package:MWPX/services/data_grid_service.dart';
+import 'package:MWPX/services/file_service.dart';
 import 'package:MWPX/services/home_service.dart';
 import 'package:MWPX/services/report_service.dart';
 import 'package:MWPX/services/shared_prefers_service.dart';
@@ -28,6 +30,12 @@ void main() {
         ),
         Provider<DataGridService>(
           create: (_) => DataGridService(),
+        ),
+        Provider<AudioService>(
+          create: (_) => AudioService(),
+        ),
+        Provider<FileService>(
+          create: (_) => FileService(),
         ),
       ],
       child: MaterialApp(

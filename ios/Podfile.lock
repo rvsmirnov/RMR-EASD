@@ -1,30 +1,47 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_sound (8.2.0):
+    - Flutter
+    - mobile-ffmpeg-full (= 4.4.LTS)
+    - tau_core (= 8.2.0)
   - local_auth (0.0.1):
     - Flutter
+  - mobile-ffmpeg-full (4.4.LTS)
   - open_file (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
   - pdf_image_renderer (0.0.1):
     - Flutter
+  - "permission_handler (5.1.0+2)":
+    - Flutter
   - printing (1.0.0):
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - tau_core (8.2.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - pdf_image_renderer (from `.symlinks/plugins/pdf_image_renderer/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - printing (from `.symlinks/plugins/printing/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+
+SPEC REPOS:
+  trunk:
+    - mobile-ffmpeg-full
+    - tau_core
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_sound:
+    :path: ".symlinks/plugins/flutter_sound/ios"
   local_auth:
     :path: ".symlinks/plugins/local_auth/ios"
   open_file:
@@ -33,6 +50,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   pdf_image_renderer:
     :path: ".symlinks/plugins/pdf_image_renderer/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   printing:
     :path: ".symlinks/plugins/printing/ios"
   shared_preferences:
@@ -40,13 +59,17 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_sound: 9abd356ff1aac77f0cad17152c59ae320226bbe7
   local_auth: 25938960984c3a7f6e3253e3f8d962fdd16852bd
+  mobile-ffmpeg-full: f17c82219b4ff9e4018b5e21f88b78c28a3475db
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   pdf_image_renderer: dc5cf3f09a47e742ed9438adda12d2f386993bc6
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   printing: eafa00acb682c0ca029d4d98d0798f55a1e27102
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  tau_core: 0a1354b62e31cbe11ce49dc7169becfac5bd4850
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 3fd18e653c150a8e60efb3e52d375314612a23bf
 
 COCOAPODS: 1.10.1

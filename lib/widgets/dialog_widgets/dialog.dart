@@ -247,82 +247,166 @@ class Dialogs {
     );
   }
 
-  // static Future<dynamic> infoDialogRK2({
-  //   context,
-  //   Widget? titleWidget,
-  //   Widget? content,
-  // }) {
-  //   return showDialog(
-  //     useRootNavigator: false,
-  //     context: context,
-  //     builder: (BuildContext buildContext) {
-  //       return
-  //       // Theme(
-  //       //     data: Theme.of(context).copyWith(
-  //       //         // dialogBackgroundColor: Colors.white,
-  //       //         textTheme: TextTheme(
-  //       //             bodyText1: TextStyle(
-  //       //                 // color: Colors.black87,
-  //       //                 ))),
-  //       //     child:
+  static Future<dynamic> infoDialogDark({
+    context,
+    // String? title,
+    Widget? content,
+    void Function()? buttonFunction,
+    String? buttonName = '',
+  }) {
+    return showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return
+            // Theme(
+            //   data: Theme.of(context).copyWith(
+            //       // dialogBackgroundColor: Colors.white,
+            //       textTheme: TextTheme(
+            //           bodyText1: TextStyle(
+            //         // color: Colors.black87,
+            //       ))),
+            //   child:
+            AlertDialog(
+          backgroundColor: MWPColors.mwpColorDark,
+          // title: Center(child: Text(title!)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0))),
+          actions: [
+            Container(
+              color: MWPColors.mwpColorDark,
+              child: Center(
+                child: MWPSquareButton(
+                  buttonName!,
+                  onPressed: () {
+                    buttonFunction!;
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ),
+          ],
+          content: Container(
+            // width: 800,
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: content!,
+          ),
+          // ),
+        );
+      },
+    );
+  }
 
-  //               Scaffold(
-  //                 backgroundColor: Colors.transparent,
-  //                 appBar: AppBar(
-  //                   title: Text(
-  //                      "Title",
-  //                       style: TextStyle(
-  //                         fontWeight: FontWeight.bold,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                 ),
-  //                 body: SafeArea(
-  //                   child: Center(
-  //                     child: Container(
-  //                       color: Colors.white,
-  //                       height: 50,
-  //                       width: 50,
-  //                     ),
-  //                   ),
-  //                 )
-  //               );
+  static Future<dynamic> infoDialogDarkWithRoundButton({
+    context,
+    // String? title,
+    Widget? content,
+    void Function()? buttonFunction,
+    String? buttonName = '',
+  }) {
+    return showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return
+            // Theme(
+            //   data: Theme.of(context).copyWith(
+            //       // dialogBackgroundColor: Colors.white,
+            //       textTheme: TextTheme(
+            //           bodyText1: TextStyle(
+            //         // color: Colors.black87,
+            //       ))),
+            //   child:
+            AlertDialog(
+          backgroundColor: MWPColors.mwpColorDark,
+          // title: Center(child: Text(title!)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0))),
+          actions: [
+            Center(
+              child: MWPCircleButton(
+                backgroundColor: Colors.transparent,
+                buttonChild: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                borderWidth: 2,
+                borderColor: Colors.white,
+              ),
+            ),
+          ],
+          content: Container(
+            // width: 800,
+            width: MediaQuery.of(context).size.width * 0.4,
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: content!,
+          ),
 
-  //           //     Container(
-  //           //       child: AlertDialog(
-  //           //   title: titleWidget,
-  //           //   shape: RoundedRectangleBorder(
-  //           //         borderRadius: BorderRadius.all(Radius.circular(12.0))),
-  //           //   actions: [
-  //           //       Center(
-  //           //         child: MWPSquareButton(
-  //           //           'Закрыть',
-  //           //           borderColor: Colors.black,
-  //           //           textColor: Colors.black,
-  //           //           onPressed: () {
-  //           //             Navigator.of(context).pop();
-  //           //           },
-  //           //         ),
-  //           //       ),
-  //           //   ],
-  //           //   content: Container(
-  //           //       decoration: BoxDecoration(
-  //           //           // border: Border(
-  //           //           //   top: BorderSide(
-  //           //           //     width: 1,
-  //           //           //     color: Colors.black,
-  //           //           //   ),
-  //           //           // ),
-  //           //           ),
-  //           //       // width: 800,
-  //           //       width: MediaQuery.of(context).size.width * 0.8,
-  //           //       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-  //           //       child: content!,
-  //           //   ),
-  //           //   // ),
-  //           // ),
-  //               // ));
-  //     },
-  //   );
-  // }
+          // ),
+        );
+      },
+    );
+  }
+
+  static Future<dynamic> infoDialogDarkWithChoice({
+    context,
+    // String? title,
+    Widget? content,
+    void Function()? buttonFunction,
+    String? buttonName = '',
+  }) {
+    return showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return AlertDialog(
+          backgroundColor: MWPColors.mwpColorDark,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0))),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MWPCircleButton(
+                  backgroundColor: Colors.transparent,
+                  buttonChild: Text(
+                    'Да',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  borderWidth: 2,
+                  borderColor: Colors.white,
+                ),
+                MWPCircleButton(
+                  backgroundColor: Colors.transparent,
+                  buttonChild: Text(
+                    'Нет',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  borderWidth: 2,
+                  borderColor: Colors.white,
+                ),
+              ],
+            ),
+          ],
+          content: Container(
+            // width: 800,
+            width: MediaQuery.of(context).size.width * 0.4,
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: content!,
+          ),
+          // ),
+        );
+      },
+    );
+  }
 }

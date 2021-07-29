@@ -43,5 +43,7 @@
 	<false/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Приложение использует Face ID</string>
+	<key>NSMicrophoneUsageDescription</key>
+<string>Запрос на использование микрофона</string>
 </dict>
 </plist>
