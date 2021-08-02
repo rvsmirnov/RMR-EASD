@@ -1,4 +1,6 @@
 import 'package:MWPX/services/audio_service.dart';
+import 'package:MWPX/data_processing/DB.dart';
+import 'package:MWPX/data_processing/folder/FolderOperator.dart';
 import 'package:MWPX/services/biometric_service.dart';
 import 'package:MWPX/services/data_grid_service.dart';
 import 'package:MWPX/services/file_service.dart';
@@ -12,7 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'views/biometrics/biometrics_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await DB.init();
+
+  await FolderOperator.fillInitialFolders();
+
   runApp(
     MultiProvider(
       providers: [

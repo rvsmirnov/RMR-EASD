@@ -20,7 +20,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is OpenScreen) {
       try {
         yield HomeLoading();
+
+        await homeService!.fillFoldersFromDB();
+
         List<Map> foldersHomeDataList = homeService!.foldersHomeDataList;
+
         // throw 'Данных нет';
         List<Map>? newFoldersHomeDataList = homeService!.addSvgIcons(
           foldersHomeDataList: foldersHomeDataList,

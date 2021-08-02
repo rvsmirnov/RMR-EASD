@@ -1,6 +1,8 @@
+import 'package:MWPX/data_structure/folder/FolderItem.dart';
+
 /// Данные папки с меткой синхронизации
 /// Используется для поиска дельты при получении данных из ЕАСД
-class FolderItemSync {
+class FolderItemSync extends FolderItem {
   /// Флаг синхронизщированности папки
   late String syncAction;
 
