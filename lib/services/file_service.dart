@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class FileService {
   Future<String> get localPath async {
@@ -40,6 +42,16 @@ class FileService {
       print(e);
       return false;
     }
+  }
+
+  static Future getFileFromAssetsToPath({String? assetsPath, String? fileName}) async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    var dbPath = join(directory.path, fileName);
+    ByteData data = await rootBundle.load(assetsPath!);
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    await File(dbPath).writeAsBytes(bytes);
+    return '${directory.path}/$fileName';
   }
 
   // final AudioSource theSource = AudioSource.microphone;

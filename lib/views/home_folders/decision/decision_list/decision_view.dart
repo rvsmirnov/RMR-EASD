@@ -56,11 +56,11 @@ class _DecisionViewBodyState extends State<DecisionViewBody> {
     for (int i = 0; i < 100; i++) {
       DecisionListItem decisionItem = new DecisionListItem();
       decisionItem.cardUrgent = true;
-      // decisionItem.dokar = "VHD";
+      decisionItem.dokar = "VHD";
       // Отпуск
       // decisionItem.dokar = 'LVE';
       // Коммандировка
-      decisionItem.dokar = 'BTR';
+      // decisionItem.dokar = 'BTR';
       decisionItem.doknr = i.toString();
       decisionItem.content = "Документ $i";
       decisionItem.regNUM = i.toString();

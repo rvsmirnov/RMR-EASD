@@ -11,12 +11,14 @@ class RKLeftHeader extends StatefulWidget {
   final List<DataGridCell<dynamic>>? cellsList;
   final String? rightButtonText;
   final double? leftSplitterWidth;
+  final Function? onAllCheckBoxSelected;
 
   RKLeftHeader({
     this.dokar = '',
     this.cellsList = const <DataGridCell<dynamic>>[],
     this.leftSplitterWidth,
     this.rightButtonText = 'Лист согласования',
+    this.onAllCheckBoxSelected,
     // this.simple = true,
   });
 
@@ -26,6 +28,7 @@ class RKLeftHeader extends StatefulWidget {
 
 class _RKLeftHeaderState extends State<RKLeftHeader> {
   bool checkedValue = false;
+  bool meetingCheckedValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,10 @@ class _RKLeftHeaderState extends State<RKLeftHeader> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Checkbox(
-          value: checkedValue,
+          value: meetingCheckedValue,
           onChanged: (bool? newValue) {
             setState(() {
-              checkedValue = newValue!;
+              meetingCheckedValue = newValue!;
             });
           },
         ),
@@ -155,6 +158,7 @@ class _RKLeftHeaderState extends State<RKLeftHeader> {
                     onChanged: (bool? newValue) {
                       setState(() {
                         checkedValue = newValue!;
+                        widget.onAllCheckBoxSelected!(newValue);
                       });
                     },
                   ),

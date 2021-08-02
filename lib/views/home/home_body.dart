@@ -20,6 +20,7 @@ import 'package:MWPX/views/home_folders/graphic_notes/graphic_notes_screen9.dart
 import 'package:MWPX/views/home_folders/report/report_screen.dart';
 import 'package:MWPX/views/home_folders/sign/sign_list/sign_view.dart';
 import 'package:MWPX/views/home_folders/vacationview.dart';
+import 'package:MWPX/views/open_file_example/open_file.dart';
 import 'package:MWPX/widgets/dialog_widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:MWPX/widgets/button_bar/buttonbar.dart';
@@ -160,13 +161,13 @@ class MWPFolderTile extends StatelessWidget {
           }
           //
           if (this._folderCode == 00009) {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => SimpleRecorder(
-            //     ),
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OpenFileWidget(
+                ),
+              ),
+            );
           }
           if (this._folderCode == 00010) {
             Navigator.push(

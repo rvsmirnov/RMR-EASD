@@ -8,11 +8,13 @@ class RKSimpleLeftHeader extends StatefulWidget {
   final List<DataGridCell<dynamic>>? cellsList;
   final double? leftSplitterWidth;
   final BuildContext? buildContext;
+  final Function? onAllCheckBoxSelected;
 
   RKSimpleLeftHeader({
     this.cellsList,
     this.leftSplitterWidth,
     this.buildContext,
+    this.onAllCheckBoxSelected,
     // this.simple = true,
   });
 
@@ -22,6 +24,7 @@ class RKSimpleLeftHeader extends StatefulWidget {
 
 class _RKSimpleLeftHeaderState extends State<RKSimpleLeftHeader> {
   bool checkedValue = false;
+  bool meetingCheckedValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +32,10 @@ class _RKSimpleLeftHeaderState extends State<RKSimpleLeftHeader> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Checkbox(
-          value: checkedValue,
+          value: meetingCheckedValue,
           onChanged: (bool? newValue) {
             setState(() {
-              checkedValue = newValue!;
+              meetingCheckedValue = newValue!;
             });
           },
         ),
@@ -91,6 +94,7 @@ class _RKSimpleLeftHeaderState extends State<RKSimpleLeftHeader> {
                     onChanged: (bool? newValue) {
                       setState(() {
                         checkedValue = newValue!;
+                        widget.onAllCheckBoxSelected!(newValue);
                       });
                     },
                   ),

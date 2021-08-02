@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class CountDownTimer extends StatefulWidget {
   final Duration? duration;
-  const CountDownTimer({this.duration});
+  const CountDownTimer({
+    this.duration,
+  });
 
   @override
   State<CountDownTimer> createState() => _CountDownTimerState();
