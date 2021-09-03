@@ -7,18 +7,18 @@ class OutgoingCard extends CardHeader {
   late String executorName;
 
   /// Подразделения Исполнителя(инициатора)
-  late String executorOrg;
+  late String executorDepartment;
 
   /// ФИО Подписывающего
   late String signerName;
 
   /// Признак, говорящий о том, что для данной РК нужно
   /// конвертировать файлы DOC в PDF-A1 при подписани
-  late bool pdfaConvFlag;
+  late int pdfaConvFlag;
 
   /// Исполнитель(инициатор) для вывода на экран
   String get executorOrgText {
-    return "Исполнитель: $executorOrg";
+    return "Исполнитель: $executorDepartment";
   }
 
   /// Таблица адресатов исходящего(локальная)
@@ -32,10 +32,26 @@ class OutgoingCard extends CardHeader {
   /// Конструктор, инициализация значений и  внутреннних таблиц
   OutgoingCard() : super() {
     executorName = "";
-    executorOrg = "";
+    executorDepartment = "";
     signerName = "";
-    pdfaConvFlag = false;
+    pdfaConvFlag = 0;
     _addresseeTable = [];
+    tableName = "Outgoing";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'executorName': executorName,
+      'executorDepartment': executorDepartment,
+      'signerName': signerName,
+      'pdfaConvFlag': pdfaConvFlag
+    };
+    return map;
   }
 
   /// Текстовое представление РК Исходящего

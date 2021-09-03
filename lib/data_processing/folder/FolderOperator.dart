@@ -6,11 +6,20 @@ import 'package:MWPX/data_structure/folder/FolderItem.dart';
 abstract class FolderOperator {
   ///Получить список папок с количеством документов в них.
   ///Нужно указать родительскую папку для получения списка.
-  static Future<List<FolderItem>> getFolderList(String pParentCode) async {
+  static Future<List<FolderItem>> getFolderList(String? pParentCode) async {
     List<FolderItem> result = [];
 
-    var folderList = await DB.rawSelect(
-        "SELECT folderCode, folderName, recNr, folderType, parentCode from Folder where parentCode = '$pParentCode'");
+    String sFolderSQL = "";
+
+    if (pParentCode == null) {
+      sFolderSQL =
+          "SELECT folderCode, folderName, recNr, folderType, parentCode from Folder";
+    } else {
+      sFolderSQL =
+          "SELECT folderCode, folderName, recNr, folderType, parentCode from Folder where parentCode = '$pParentCode'";
+    }
+
+    var folderList = await DB.rawSelect(sFolderSQL);
 
     for (var fold in folderList) {
       FolderItem fi = new FolderItem();
@@ -62,13 +71,14 @@ abstract class FolderOperator {
 
   /// Изменить в БД информацию о папке
   static Future<void> updateFolder(FolderItem pFolderItem) async {
-    DB.update(pFolderItem.tableName, pFolderItem, 'folderCode=?',
+    await DB.update(pFolderItem.tableName, pFolderItem, 'folderCode=?',
         [pFolderItem.folderCode]);
   }
 
   ///Удалить папку из БД
   static Future<void> deleteFolder(FolderItem pFolderItem) async {
-    DB.delete(pFolderItem.tableName, 'folderCode=?', [pFolderItem.folderCode]);
+    await DB.delete(
+        pFolderItem.tableName, 'folderCode=?', [pFolderItem.folderCode]);
   }
 
   /// Заполнить данными БД после создания (потом убрать, для тестирования)

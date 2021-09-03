@@ -65,13 +65,11 @@ class CardHeader extends CardListKey {
   String get currentAPRNR {
     String sResult = "";
 
-    // foreach (RouteTableItem ri in _routeTable)
-    // {
-    //     if (ri.WFITEM == this.WFITEM)
-    //     {
-    //         s_result = ri.RECNR;
-    //     }
-    // }
+    for (RouteTableItem ri in routeTable) {
+      if (ri.wfItem == this.wfItem) {
+        sResult = ri.recNr;
+      }
+    }
 
     return sResult;
   }
@@ -90,36 +88,21 @@ class CardHeader extends CardListKey {
     return sRegNum;
   }
 
-  /// Маршрутная таблица, внутренняя
-  late List<RouteTableItem> _routeTable;
-
   /// Маршрутная таблица
-  List<RouteTableItem> get routeTable {
-    return _routeTable;
-  }
-
-  /// Таблица файлов, внутренняя
-  late List<FileTableItem> _fileTable;
+  late List<RouteTableItem> routeTable;
 
   /// Таблица файлов
-  List<FileTableItem> get fileTable {
-    return _fileTable;
-  }
-
-  /// Таблица коментариев Руководитель/Помощник, внутренняя
-  late List<IterationTableItem> _iterationTable;
+  late List<FileTableItem> fileTable;
 
   /// Таблица коментариев Руководитель/Помощник
-  List<IterationTableItem> get iterationTable {
-    return _iterationTable;
-  }
+  late List<IterationTableItem> iterationTable;
 
   /// Текущая итерация. Та, которую Рукоководитель редактирует на момент работы с РК
   IterationTableItem get currentIteration {
-    if (_iterationTable.length == 0) {
+    if (iterationTable.length == 0) {
       return new IterationTableItem();
     } else {
-      return _iterationTable[_iterationTable.length - 1];
+      return iterationTable[iterationTable.length - 1];
     }
   }
 
@@ -128,23 +111,23 @@ class CardHeader extends CardListKey {
 
   /// Самая свежая итерация помощника. Та, информация из которой показывается в видимом сегменте доп. информации
   IterationTableItem get lastIteration {
-    if (_iterationTable.length == 0) {
+    if (iterationTable.length == 0) {
       return new IterationTableItem();
     } else {
       if (this.folderCode == "00003") {
         IterationTableItem itmResult = new IterationTableItem();
         itmResult.iterNr = -1;
-        for (int i = 0; i < _iterationTable.length; i++) {
-          if (_iterationTable[i].noteText != "" &&
-              _iterationTable[i].authorName.toUpperCase() !=
+        for (int i = 0; i < iterationTable.length; i++) {
+          if (iterationTable[i].noteText != "" &&
+              iterationTable[i].authorName.toUpperCase() !=
                   selfFIO.toUpperCase()) {
-            itmResult = _iterationTable[i];
+            itmResult = iterationTable[i];
             break;
           }
         }
         return itmResult;
       } else
-        return _iterationTable[0];
+        return iterationTable[0];
     }
   }
 
@@ -183,9 +166,9 @@ class CardHeader extends CardListKey {
     regNum = "";
     regDate = emptyDate;
 
-    _routeTable = [];
-    _fileTable = [];
-    _iterationTable = [];
+    routeTable = [];
+    fileTable = [];
+    iterationTable = [];
 
     documentType = "";
 
@@ -194,6 +177,7 @@ class CardHeader extends CardListKey {
     rcvdDT = new DateTime(1900, 1, 1, 0, 0, 1);
 
     forMeeting = false;
+    tableName = "CardHeader";
   }
 
   /// <summary>
@@ -233,16 +217,12 @@ class CardHeader extends CardListKey {
     String sFileList = "";
     String sGraphNoteList = "";
 
-    for (FileTableItem file in _fileTable) {
+    for (FileTableItem file in fileTable) {
       if (file.isSelected) {
         sFileList += "[X]" + file.descriptionFilename + ", ";
       } else {
         sFileList += file.descriptionFilename + ", ";
       }
-
-      // if (file.InkStrokeContent != null) {
-      //   sGraphNoteList += file.descriptionFilename  + ", ";
-      // }
     }
 
     if (sFileList.length > 0) {
@@ -264,5 +244,83 @@ class CardHeader extends CardListKey {
     }
 
     return "Ключ:[$sKey] Файлы:[$sFileList] Комментарий:[$sComment] Аудио:[$sVoiceNoteList] Графические заметки:[$sGraphNoteList]";
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    logsys = pMap['logsys'];
+    dokar = pMap['dokar'];
+    doknr = pMap['doknr'];
+    dokvr = pMap['dokvr'];
+    doktl = pMap['doktl'];
+    doknrTRUNC = pMap['doknrTRUNC'];
+    createdBy = pMap['createdBy'];
+    createdDT = pMap['createdDT'];
+    changedBy = pMap['changedBy'];
+    changedDT = pMap['changedDT'];
+    content = pMap['content'];
+    regNum = pMap['regNum'];
+    regDate = pMap['regDate'];
+    documentType = pMap['documentType'];
+    cardUrgent = pMap['cardUrgent'];
+    rcvdDT = pMap['rcvdDT'];
+    forMeeting = pMap['forMeeting'];
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'doknrTRUNC': doknrTRUNC,
+      'createdBy': createdBy,
+      'createdDT': createdDT.millisecondsSinceEpoch,
+      'changedBy': changedBy,
+      'changedDT': changedDT.millisecondsSinceEpoch,
+      'content': content,
+      'regNum': regNum,
+      'regDate': regDate.millisecondsSinceEpoch,
+      'documentType': documentType,
+      'cardUrgent': cardUrgent,
+      'rcvdDT': rcvdDT.millisecondsSinceEpoch,
+      'forMeeting': forMeeting ? 1 : 0
+    };
+
+    return map;
+  }
+
+  CardHeader getHeader() {
+    CardHeader head = new CardHeader();
+    head.logsys = this.logsys;
+    head.dokar = this.dokar;
+    head.doknr = this.doknr;
+    head.dokvr = this.dokvr;
+    head.doktl = this.doktl;
+
+    head.doknrTRUNC = this.doknrTRUNC;
+
+    head.createdBy = this.createdBy;
+    head.createdDT = this.createdDT;
+
+    head.changedBy = this.changedBy;
+    head.changedDT = this.changedDT;
+
+    head.content = this.content;
+
+    head.regNum = this.regNum;
+    head.regDate = this.regDate;
+
+    head.documentType = this.documentType;
+
+    head.cardUrgent = this.cardUrgent;
+
+    head.rcvdDT = this.rcvdDT;
+
+    head.forMeeting = this.forMeeting;
+
+    return head;
   }
 }

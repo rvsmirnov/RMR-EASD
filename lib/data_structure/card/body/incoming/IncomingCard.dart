@@ -8,9 +8,6 @@ class IncomingCard extends CardHeader {
   /// Подразделение основного автора РК Исходящего
   late String mainAuthorOrg;
 
-  /// Признак "Важное"
-  late bool chbV;
-
   /// полная информация об основном авторе входящего
   String get mainAuthorFull {
     String sAuthorFull = "";
@@ -32,12 +29,25 @@ class IncomingCard extends CardHeader {
   IncomingCard() : super() {
     mainAuthor = "";
     mainAuthorOrg = "";
-    chbV = false;
+    tableName = "Incoming";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'mainAuthor': mainAuthor,
+      'mainAuthorOrg': mainAuthorOrg
+    };
+    return map;
   }
 
   /// Текстовое представление РК Входящего
   @override
   String toString() {
-    return "Входящий${chbV ? '(Важный)' : ''} $regNum от ${dateFormat.format(regDate)} ${super.toString()}";
+    return "Входящий${cardUrgent == 1 ? '(Важный)' : ''} $regNum от ${dateFormat.format(regDate)} ${super.toString()}";
   }
 }

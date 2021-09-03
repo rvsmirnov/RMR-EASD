@@ -132,6 +132,7 @@ class RouteTableItem extends CardItemKey {
     aprRole = "";
     rcvdDT = emptyDate;
     aprSubst = "";
+    tableName = "ApproveTable";
   }
 
   /// <summary>
@@ -141,5 +142,29 @@ class RouteTableItem extends CardItemKey {
   @override
   String toString() {
     return super.toString() + "[$recNr][$aprNameText $aprPodrText]";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'aprnr': recNr,
+      'procDT': procDT.millisecondsSinceEpoch,
+      'routeNote': routeNote,
+      'aprNameText': aprNameText,
+      'aprPodrText': aprPodrText,
+      'aprStatus': aprStatus,
+      'noteDT': noteDT.millisecondsSinceEpoch,
+      'execNameText': execNameText,
+      'execPodrText': execPodrText,
+      'aprRole': aprRole,
+      'wfItem': wfItem,
+      'rcvdDT': rcvdDT.millisecondsSinceEpoch,
+      'aprSubst': aprSubst
+    };
+    return map;
   }
 }

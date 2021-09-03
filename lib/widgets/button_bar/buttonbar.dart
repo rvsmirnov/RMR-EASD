@@ -1,3 +1,4 @@
+import 'package:MWPX/sync/SyncManager.dart';
 import 'package:MWPX/widgets/button/circlebutton.dart';
 import 'package:MWPX/widgets/button/squarebutton.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,9 @@ class MWPButtonBar extends StatelessWidget {
     if (viewName == Constants.viewNameFolders) {
       button_list.add(MWPCircleButton(
         buttonChild: Icon(Icons.sync, color: Colors.white),
+        onPressed: () {
+          startSync();
+        },
       ));
     }
 
@@ -64,5 +68,10 @@ class MWPButtonBar extends StatelessWidget {
 //              ),
           ),
     );
+  }
+
+  startSync() async {
+    SyncManager sman = new SyncManager();
+    await sman.SyncData();
   }
 }

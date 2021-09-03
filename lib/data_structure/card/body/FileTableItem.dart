@@ -167,7 +167,44 @@ class FileTableItem extends CardItemKey {
 
     skipForSign = false;
 
-    //InkStrokeContent = null;
+    tableName = "FileRecord";
+
+    //inkStrokeContent = null;
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'recExtId': recExtId,
+      'version': version,
+      'recType': recType,
+      'description': description,
+      'dappl': dappl,
+      'comment': "",
+      'createdBy': createdBy,
+      'createdDT': createdDT.millisecondsSinceEpoch,
+      'changedBy': changedBy,
+      'changedDT': changedDT.millisecondsSinceEpoch,
+      'isSelected': isSelected ? 1 : 0,
+      'opensCount': opensCount,
+      'signId': signId,
+      'stampHeader': stampHeader,
+      'stampRegNum': stampRegNum,
+      'stampSignerList': stampSignerList,
+      'fileNr': fileNr,
+      //inkStrokeContent BLOB NULL
+      'fileFormat': fileFormat,
+      'srcLogSys': srcLogSys,
+      'srcRecExtId': srcRecExtId,
+      'srcVersion': srcVersion,
+      'createMode': createMode
+    };
+
+    return map;
   }
 
   /// <summary>

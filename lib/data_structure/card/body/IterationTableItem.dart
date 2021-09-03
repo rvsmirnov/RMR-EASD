@@ -38,5 +38,23 @@ class IterationTableItem extends CardItemKey {
     iterType = "";
     noteText = "";
     voiceNoteList = [];
+    tableName = "MST_Iteration";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'iterNr': iterNr,
+      'createdDT': createdDT.millisecondsSinceEpoch,
+      'authorName': authorName,
+      'iterType': iterType,
+      'noteText': noteText
+    };
+
+    return map;
   }
 }

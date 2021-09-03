@@ -12,6 +12,24 @@ class DocumentTypeItem extends DictionaryItem {
   DocumentTypeItem() : super() {
     this.sCode = "";
     this.value = "";
+    tableName = 'DocumentType';
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logSys,
+      'sCode': sCode,
+      'value': value
+    };
+    return map;
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    logSys = pMap['logsys'];
+    sCode = pMap['sCode'];
+    value = pMap['value'];
   }
 
   /// Отображение данных класса в текстовом виде

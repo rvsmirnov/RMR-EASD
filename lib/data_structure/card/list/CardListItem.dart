@@ -69,11 +69,12 @@ class CardListItem extends CardListKey {
     changedDT = "";
     fileCount = 0;
     content = "";
+    tableName = "CardToFolder";
   }
 
   @override
   fromMap(Map<String, dynamic> pMap) {
-    rcvdDT = pMap['rcvdDT'];
+    rcvdDT = DateTime.fromMillisecondsSinceEpoch(pMap['rcvdDT']);
     cardProcessed = pMap['cardProcessed'];
     cardOpened = pMap['cardOpened'];
     super.fromMap(pMap);
@@ -82,7 +83,7 @@ class CardListItem extends CardListKey {
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      'rcvdDT': rcvdDT,
+      'rcvdDT': rcvdDT.millisecondsSinceEpoch,
       'cardProcessed': cardProcessed,
       'cardOpened': cardOpened
     };

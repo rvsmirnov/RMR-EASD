@@ -20,6 +20,21 @@ class ORDCard extends CardHeader {
     executorName = "";
     executorOrg = "";
     signerName = "";
+    tableName = "ORD";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'executorName': executorName,
+      'executorDepartment': executorOrg,
+      'signerName': signerName
+    };
+    return map;
   }
 
   /// Строковое представление ОРД

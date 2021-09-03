@@ -45,4 +45,21 @@ class VacationSignListItem extends CardListItem {
     emplPodr = "";
     emplState = "";
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    emplName = pMap['emplName'];
+    begDa = DateTime.fromMillisecondsSinceEpoch(pMap['begDT']);
+    endDa = DateTime.fromMillisecondsSinceEpoch(pMap['endDT']);
+    duration = pMap['calenddays'];
+    emplPodr = pMap['emplDepartment'];
+    emplState = pMap['emplPosition'];
+
+    super.fromMap(pMap);
+  }
+
+  @override
+  String toString() {
+    return super.toString() + " Содержание: $emplName, $emplPodr";
+  }
 }

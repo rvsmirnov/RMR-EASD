@@ -1,46 +1,72 @@
 import 'package:MWPX/data_structure/dictionary/DictionaryItem.dart';
 
 /// Класс для хранения данных о Сотрудниках и Подразделениях, загружаемых в РМР из ЕАСД
-class PersonPodrItem extends DictionaryItem {
+class PersonDepartmentItem extends DictionaryItem {
   /// Идентификатор сотрудника
   late String personCode;
 
   /// Идентификатор подразделения
-  late String podrCode;
+  late String departmentCode;
 
   /// Идентификатор должности
-  late String postCode;
+  late String positionCode;
 
   /// ФИО Сотрудника
   late String personText;
 
   /// Название подраздедения
-  late String podrText;
+  late String departmentText;
 
   /// Название должности
-  late String postText;
+  late String positionText;
 
   ///флаг выбранности в списке сотрудников
   late bool isSelected;
 
   /// ФИО и подразделение сотрудника
-  String get personPodrText {
+  String get personDepartmentText {
     if (personText.trim().isEmpty) {
-      return podrText;
+      return departmentText;
     } else {
-      return "$personText ($podrText)";
+      return "$personText ($departmentText)";
     }
   }
 
   /// Конструктор, инициализация
-  PersonPodrItem() : super() {
+  PersonDepartmentItem() : super() {
     this.personCode = "";
-    this.podrCode = "";
-    this.postCode = "";
+    this.departmentCode = "";
+    this.positionCode = "";
     this.personText = "";
-    this.podrText = "";
-    this.postText = "";
+    this.departmentText = "";
+    this.positionText = "";
     this.isSelected = false;
+    tableName = "PersonDepartment";
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logSys,
+      'personCode': personCode,
+      'departmentCode': departmentCode,
+      'positionCode': positionCode,
+      'personText': personText,
+      'departmentText': departmentText,
+      'positionText': positionText
+    };
+    return map;
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    logSys = pMap['logsys'];
+    personCode = pMap['personCode'];
+    departmentCode = pMap['departmentCode'];
+    positionCode = pMap['positionCode'];
+    personText = pMap['personText'];
+    departmentText = pMap['departmentText'];
+    positionText = pMap['positionText'];
   }
 
   /// <summary>
@@ -49,6 +75,6 @@ class PersonPodrItem extends DictionaryItem {
   /// <returns>Возвращает строку информации о Сотруднике/Подразделени</returns>
   @override
   String toString() {
-    return "[${super.toString()}] $personText-$podrText-$postText";
+    return "[${super.toString()}] $personText-$departmentText-$positionText";
   }
 }

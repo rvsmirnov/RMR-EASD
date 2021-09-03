@@ -6,21 +6,37 @@ class AddresseeTableItem extends CardItemKey {
   late String addresseeName;
 
   /// Подразделение адресата
-  late String addresseeOrg;
+  late String addresseeDepartment;
 
   /// Должность адресата
-  late String addresseePost;
+  late String addresseePosition;
 
   /// Конструктор, инициализация значений
   AddresseeTableItem() : super() {
     addresseeName = "";
-    addresseeOrg = "";
-    addresseePost = "";
+    addresseeDepartment = "";
+    addresseePosition = "";
+    tableName = "Outg_Addressee";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'recNr': recNr,
+      'addresseeName': addresseeName,
+      'addresseeDepartment': addresseeDepartment,
+      'addresseePosition': addresseePosition
+    };
+    return map;
   }
 
   /// Текстовое представление адресата РК Исходящего
   @override
   String toString() {
-    return "${super.toString()} $addresseeName($addresseeOrg)";
+    return "${super.toString()} $addresseeName($addresseeDepartment)";
   }
 }

@@ -47,7 +47,7 @@ class BTripCard extends CardHeader {
   late String signerName;
 
   /// Подразделение подписывающего
-  late String signerPodr;
+  late String signerDepartment;
 
   /// Текст вида командировки
   String get isInternationalText =>
@@ -78,7 +78,36 @@ class BTripCard extends CardHeader {
     this.resText = "";
     this.goalText = "";
     this.addInfText = "";
+    this.signerName = "";
+    this.signerDepartment = "";
+    this.delegationTable = [];
+    this.tableName = 'BTrip';
+  }
 
-    delegationTable = [];
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'intnl': isInternational ? 1 : 0,
+      'countryText': countryText,
+      'nCity': nCity,
+      'begDT': begDT.millisecondsSinceEpoch,
+      'endDT': endDT.millisecondsSinceEpoch,
+      'calendDays': calendarDays,
+      'transp': transportType,
+      'globflag': globalFlag ? 1 : 0,
+      'plpunkt': planPunkt,
+      'planFlag': planFlag ? 1 : 0,
+      'resText': resText,
+      'goalText': goalText,
+      'addInfText': addInfText,
+      'signerName': signerName,
+      'signerDepartment': signerName
+    };
+
+    return map;
   }
 }

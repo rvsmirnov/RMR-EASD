@@ -46,7 +46,7 @@ class _VacationViewState extends State<VacationView> {
       card.addInfText = "Отпускная$i дополнительная информация номер 000$i";
       card.resolutionText = "";
       card.signerName = "";
-      card.signerPodr = "";
+      card.signerDepartment = "";
 
       cardList.add(card);
     }
@@ -131,7 +131,7 @@ class VacationCardView extends StatefulWidget {
 class _VacationCardViewState extends State<VacationCardView> {
   // final TextEditingController resolutionController =
   //     TextEditingController(text: '');
-      String resolutionContentText = '';
+  String resolutionContentText = '';
 
   double getWeightLimit(double sizeHeight) {
     if (sizeHeight >= 768 && sizeHeight < 1024) {
@@ -434,7 +434,8 @@ class _VacationCardViewState extends State<VacationCardView> {
         ),
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * widget.rightSplitterWidth!,
+            width:
+                MediaQuery.of(context).size.width * widget.rightSplitterWidth!,
             child: MWPGroupBox(
               'Отпуск',
               businessTribSplitterContent,

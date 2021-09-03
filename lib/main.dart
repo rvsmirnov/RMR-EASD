@@ -17,8 +17,6 @@ void main() async {
 
   await DB.init();
 
-  await FolderOperator.fillInitialFolders();
-
   runApp(
     MultiProvider(
       providers: [

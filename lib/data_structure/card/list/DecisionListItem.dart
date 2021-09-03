@@ -13,4 +13,21 @@ class DecisionListItem extends CardListItem {
     cardUrgent = false;
     mainAuthor = "";
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    cardUrgent = pMap['cardUrgent'] == '1';
+    mainAuthor = pMap['mainAuthor'];
+    content = pMap['content'];
+    regNUM = pMap['regNum'];
+    regDATE = DateTime.fromMillisecondsSinceEpoch(pMap['regDate']);
+
+    super.fromMap(pMap);
+  }
+
+  @override
+  String toString() {
+    return super.toString() +
+        "Номер:$regNumText $regDateText , Содержание:$content Автор:$mainAuthor";
+  }
 }

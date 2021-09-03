@@ -9,23 +9,23 @@ class ExecutorTableItem extends CardItemKey {
   late String executorCode;
 
   /// Подразделение Исполнителя
-  late String executorOrg;
+  late String executorDepartment;
 
   /// Идентификатор подразделения исполнителя
-  late String executorOrgCode;
+  late String executorDepartmentCode;
 
   /// Признак "Ответственный Исполнитель"
   late bool respExec;
 
   /// Поле для вывода Исполнителя в таблицах.
   /// Если это сотрудни к - выведется ФИО, если подразделление - выведется название подразделения
-  String get executorNameOrg {
+  String get executorNameDepartment {
     String sResult = "";
 
     if (executorName.isNotEmpty) {
       sResult = executorName;
     } else {
-      sResult = executorOrg;
+      sResult = executorDepartment;
     }
 
     return sResult;
@@ -36,10 +36,28 @@ class ExecutorTableItem extends CardItemKey {
   /// </summary>
   ExecutorTableItem() : super() {
     executorName = "";
-    executorOrg = "";
+    executorDepartment = "";
     respExec = false;
     executorCode = "";
-    executorOrgCode = "";
+    executorDepartmentCode = "";
+    tableName = "Ins_Executor";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'recNr': recNr,
+      'executorName': executorName,
+      'executorDepartment': executorDepartment,
+      'respExec': respExec ? 1 : 0,
+      'executorCode': executorCode,
+      'executorDepartmentCode': executorDepartmentCode
+    };
+    return map;
   }
 
   /// <summary>
@@ -48,6 +66,6 @@ class ExecutorTableItem extends CardItemKey {
   /// <returns>Признак "Ответственный", ФИО и подразделение Исполнителя, а так же ключ РК </returns>
   @override
   String toString() {
-    return "${(respExec ? '*' : ' ')} $executorName $executorOrg - ${super.toString()}";
+    return "${(respExec ? '*' : ' ')} $executorName $executorDepartment - ${super.toString()}";
   }
 }

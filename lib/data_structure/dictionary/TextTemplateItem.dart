@@ -16,6 +16,26 @@ class TextTemplateItem extends DictionaryItem {
     this.cardType = "";
     this.textType = "";
     this.textValue = "";
+    tableName = "TextTemplate";
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logSys,
+      'cardType': cardType,
+      'textType': textType,
+      'textValue': textValue
+    };
+    return map;
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    logSys = pMap['logsys'];
+    cardType = pMap['cardType'];
+    textType = pMap['textType'];
+    textValue = pMap['textValue'];
   }
 
   /// Отображение данных класса в текстовом виде

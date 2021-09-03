@@ -43,7 +43,7 @@ class VacationCard extends CardHeader {
   late String signerName;
 
   /// Подразделение подписывающего
-  late String signerPodr;
+  late String signerDepartment;
 
   DateFormat dateFormat = DateFormat("dd.MM.yyyy");
 
@@ -77,7 +77,8 @@ class VacationCard extends CardHeader {
     this.resolutionText = "";
 
     this.signerName = "";
-    this.signerPodr = "";
+    this.signerDepartment = "";
+    this.tableName = "Vacation";
   }
 
   /// Получить Фамилию и инциалы по полному ФИО
@@ -89,5 +90,31 @@ class VacationCard extends CardHeader {
         ". " +
         fioParts[2].substring(0, 1) +
         ".";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'begDT': begDA.millisecondsSinceEpoch,
+      'endDT': endDA.millisecondsSinceEpoch,
+      'calenddays': calendarDays,
+      'intnl': intnlFlag,
+      'location': location,
+      'unpaid': unpaidFlag ? 1 : 0,
+      'emplName': emplName,
+      'substName': substName,
+      'resText': resolutionText,
+      'addInfText': addInfText,
+      'emplDepartment': emplPodr,
+      'emplPosition': emplState,
+      'signerName': signerName,
+      'signerDepartment': signerDepartment
+    };
+
+    return map;
   }
 }

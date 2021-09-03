@@ -35,4 +35,18 @@ class BTripSignListItem extends CardListItem {
     city = "";
     duration = 0;
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    begDT = DateTime.fromMillisecondsSinceEpoch(pMap['begDT']);
+    country = pMap['countryText'];
+    city = pMap['ncity'];
+    duration = pMap['calendDays'];
+    super.fromMap(pMap);
+  }
+
+  @override
+  String toString() {
+    return super.toString() + " Содержание: $countryCityText";
+  }
 }

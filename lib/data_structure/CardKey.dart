@@ -49,4 +49,19 @@ class CardKey extends TableRow {
     };
     return map;
   }
+
+  @override
+  String toString() {
+    return "LS=$logsys KEY=$dokar $doknr $dokvr $doktl ";
+  }
+
+  @override
+  String getWhereExp() {
+    return "logsys=? and dokar=? and doknr=? and dokvr=? and doktl=?";
+  }
+
+  @override
+  List<Object?> getWhereKey() {
+    return {logsys, dokar, doknr, dokvr, doktl}.toList();
+  }
 }

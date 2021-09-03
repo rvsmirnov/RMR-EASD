@@ -14,4 +14,19 @@ class SignListItem extends CardListItem {
     documentTypeText = "";
     cardUrgent = false;
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    content = pMap['content'];
+    cardUrgent = pMap['cardUrgent'] == '1';
+    documentTypeText = pMap['docTypeText'];
+
+    super.fromMap(pMap);
+  }
+
+  @override
+  String toString() {
+    return super.toString() +
+        "Тип: $documentTypeText Содержание: $content Важность: $cardUrgent";
+  }
 }

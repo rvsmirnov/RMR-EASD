@@ -9,4 +9,24 @@ class ApproveListItem extends CardListItem {
   ApproveListItem() : super() {
     documentTypeText = "";
   }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    content = pMap['content'];
+    //regNUM = pMap['regNum'];
+    //regDATE = DateTime.fromMillisecondsSinceEpoch(pMap['regDate']);
+    super.fromMap(pMap);
+    if (dokar == "LVE") {
+      documentTypeText = "Отпуск";
+    } else if (dokar == "BTR") {
+      documentTypeText = "Командировка";
+    } else {
+      documentTypeText = pMap['docTypeText'];
+    }
+  }
+
+  @override
+  String toString() {
+    return super.toString() + "Тип: $documentTypeText Содержание: $content";
+  }
 }

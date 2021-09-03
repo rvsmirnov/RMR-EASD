@@ -119,6 +119,29 @@ class InstructionCard extends CardHeader {
     punkt = "";
 
     _executorTable = [];
+    tableName = "Instruction";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'initiatorName': initiatorName,
+      'signerName': signerName,
+      'controllerName': controllerName,
+      'ctrlType': ctrlType,
+      'urgency': urgency,
+      'chkConf': chkConf ? 1 : 0,
+      'ctrlDate': ctrlDate.millisecondsSinceEpoch,
+      'factExecDate': factExecDate.millisecondsSinceEpoch,
+      'executionText': executionText,
+      'statusProcText': statusProcText,
+      'punkt': punkt,
+    };
+    return map;
   }
 
   /// Текстовое представление РК Поручения

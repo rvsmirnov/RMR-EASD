@@ -17,7 +17,7 @@ class ExecutionListItem extends CardListItem {
       sDelta = iDays.toString();
 
       // if (sDelta.substring(sDelta.length - 2, sDelta.length - 1) == "1") {
-        if (sDelta.endsWith('1')) {
+      if (sDelta.endsWith('1')) {
         sWord = "сутки";
       } else {
         sWord = "суток";
@@ -91,5 +91,17 @@ class ExecutionListItem extends CardListItem {
     punkt = "";
     signerName = "";
     _execLight = "cl6";
+  }
+
+  @override
+  fromMap(Map<String, dynamic> pMap) {
+    content = pMap['content'];
+    cardUrgent = pMap['cardUrgent'] == '1';
+    controllerName = pMap['controllerName'];
+    ctrlDate = DateTime.fromMillisecondsSinceEpoch(pMap['ctrlDate']);
+    punkt = pMap['punkt'];
+    signerName = pMap['signerName'];
+
+    super.fromMap(pMap);
   }
 }

@@ -46,5 +46,27 @@ class DelegationTableItem extends CardItemKey {
     calendarDays = 0;
 
     transportType = "";
+
+    tableName = "BTrip_Delegation";
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      'logsys': logsys,
+      'dokar': dokar,
+      'doknr': doknr,
+      'dokvr': dokvr,
+      'doktl': doktl,
+      'recNr': recNr,
+      'nameText': fioText,
+      'departmentText': orgText,
+      'positionText': postText,
+      'begDT': begDT.millisecondsSinceEpoch,
+      'endDT': endDT.millisecondsSinceEpoch,
+      'calendDays': calendarDays,
+      'transp': transportType
+    };
+
+    return map;
   }
 }
