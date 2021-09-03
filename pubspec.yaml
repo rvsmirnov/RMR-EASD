@@ -35,11 +35,14 @@ dependencies:
   pdf_image_renderer: ^0.6.1
   pdf: ^3.4.2
   path_provider: ^2.0.2
-  open_file: ^3.2.1
   printing: ^5.4.2
   # native_pdf_renderer: ^3.1.0
   font_awesome_flutter: ^9.1.0
   shared_preferences: ^2.0.6
+  flutter_sound: ^8.2.0
+  permission_handler: ^8.1.4
+  open_file: ^3.2.1
+  # file_picker: ^3.0.4
   # flutter_sound_lite: ^8.2.0
   # permission_handler: ^6.0.1
   sqflite: ^2.0.0+3

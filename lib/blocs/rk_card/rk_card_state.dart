@@ -11,17 +11,27 @@ class RKCardInitial extends RKCardState {}
 
 class RKCardLoading extends RKCardState {}
 
-class RKCardDataReceived extends RKCardState {
-  final List<Map>? foldersRKCardDataList;
+class RKCardData extends RKCardState {
+  final List<String>? numberVoiceList;
+  final String? errorMessage;
+  final bool? resetVoiceNumber;
+  final Duration? duration;
+  final bool? showRecordingDialog;
 
-  const RKCardDataReceived({@required this.foldersRKCardDataList});
+  const RKCardData({
+    @required this.numberVoiceList,
+    this.errorMessage = '',
+    this.resetVoiceNumber = false,
+    this.duration = const Duration(),
+    this.showRecordingDialog = false,
+  });
 
   @override
-  List<Object?> get props => [foldersRKCardDataList];
+  List<Object?> get props => [numberVoiceList, errorMessage, resetVoiceNumber, duration, showRecordingDialog];
 
   @override
-  String toString() => 'RKCardDataReceived { foldersRKCardDataList: $foldersRKCardDataList }';
-
+  String toString() =>
+      'RKCardData { numberVoiceList: $numberVoiceList errorMessage: $errorMessage resetVoiceNumber: $resetVoiceNumber duration: $duration showRecordingDialog $showRecordingDialog }';
 }
 
 class RKCardFailure extends RKCardState {

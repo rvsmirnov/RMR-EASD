@@ -74,7 +74,11 @@ class _AgreementViewBodyState extends State<AgreementViewBody> {
     for (int i = 0; i < 100; i++) {
       ApproveListItem approveItem = new ApproveListItem();
       // approveItem.cardUrgent = true;
-      approveItem.dokar = "ORD";
+      // approveItem.dokar = "ORD";
+            // Отпуск
+      approveItem.dokar = 'LVE';
+      // Коммандировка
+      // approveItem.dokar = 'BTR';
       approveItem.doknr = i.toString();
       approveItem.content = "Документ $i";
       //этого свойства нет, подставить в таблицу вместо нум

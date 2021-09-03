@@ -30,6 +30,20 @@ class IconsService {
           height: 30,
         );
       }
+      if (value == 'LVE') {
+        return Image.asset(
+          'assets/images/dokar_icons/vacation.gif',
+          width: 30,
+          height: 30,
+        );
+      }
+      if (value == 'BTR') {
+        return Image.asset(
+          'assets/images/dokar_icons/btrip.gif',
+          width: 30,
+          height: 30,
+        );
+      }
       return Image.asset(
         'assets/images/dokar_icons/incoming.gif',
         width: 30,
